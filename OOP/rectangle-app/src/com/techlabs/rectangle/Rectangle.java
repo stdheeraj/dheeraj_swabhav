@@ -1,6 +1,8 @@
 package com.techlabs.rectangle;
 
-public class Rectangle {
+import java.io.Serializable;
+
+public class Rectangle implements Serializable {
 
 	private int width;
 	private int hieght;
