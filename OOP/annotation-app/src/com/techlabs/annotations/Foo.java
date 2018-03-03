@@ -3,25 +3,25 @@ package com.techlabs.annotations;
 public class Foo {
 	
 
-	@NeedRefractoring()
+	@NeedRefractoring("m1")
 	public void m1() {
-		System.out.println("Class m1");
+		System.out.println("Method m1");
 
 	}
 
 	public void m2() {
-		System.out.println("class m2");
+		System.out.println("Method m2");
 
 	}
 
 	public void m3() {
-		System.out.println("Class m3");
+		System.out.println("Method m3");
 
 	}
 
-	@NeedRefractoring()
+	@NeedRefractoring("m4")
 	public void m4() {
-		System.out.println("Class m4");
+		System.out.println("Method m4");
 
 	}
 
