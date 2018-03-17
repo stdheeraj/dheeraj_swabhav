@@ -12,10 +12,9 @@ import java.util.Scanner;
 import com.techlabs.student.Student;
 
 public class TestStudent {
-
-	static Scanner sc = new Scanner(System.in);
-
 	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
 		int ch;
 
 		do {
@@ -26,7 +25,14 @@ public class TestStudent {
 
 			switch (ch) {
 			case 1:
-				addStudent();
+				Student s = new Student();
+				
+				System.out.println("Enter =>\n Roll No || Name || Stream || Division ");
+				s.setRollno(sc.nextInt());
+				s.setName(sc.next());
+				s.setStream(sc.next());
+				s.setDiv(sc.next());
+				addStudent(s);
 				break;
 			case 2:
 				displayStudent();
@@ -40,15 +46,9 @@ public class TestStudent {
 		sc.close();
 	}
 
-	private static void addStudent() {
+	private static void addStudent(Student s) {
 		
-		Student s = new Student();
 		
-		System.out.println("Enter =>\n Roll No || Name || Stream || Division ");
-		s.setRollno(sc.nextInt());
-		s.setName(sc.next());
-		s.setStream(sc.next());
-		s.setDiv(sc.next());
 		
 		try {
 			File f = new File("src/data/students.ser");

@@ -35,4 +35,8 @@ public class Book {
 	public int getId() {
 		return id;
 	}
+	
+	public void setQuantity(int quantity){
+		this.quantity=quantity;
+	}
 }
