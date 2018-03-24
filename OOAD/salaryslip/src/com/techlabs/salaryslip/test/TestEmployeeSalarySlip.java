@@ -11,16 +11,13 @@ public class TestEmployeeSalarySlip {
 		EmployeePaySlip eps= new EmployeePaySlip();
 		
 		System.out.println("Pay Slip of Manager ->");
-		Manager m=new Manager(101,"John", 35000);
-		eps.printPaySlip(m);
+		eps.printPaySlip(new Manager(101,"John", 35000));
 		
 		System.out.println("\nPay Slip of Developer ->");
-		Developer d=new Developer(201, "Smith", 25000);
-		eps.printPaySlip(d);
+		eps.printPaySlip(new Developer(201, "Smith", 25000));
 		
 		System.out.println("\nPay Slip of Analyst ->");
-		Analyst a=new Analyst(301, "Gina", 15000);
-		eps.printPaySlip(a);
+		eps.printPaySlip(new Analyst(301, "Gina", 15000));
 		
 	}
 }
