@@ -13,7 +13,7 @@ public class TestBinarySearch {
 		// BinarySearch bs=new BinarySearch(new QuickSort(arr));
 		BinarySearch bs = new BinarySearch(new BubbleSort(arr));
 
-		System.out.println(bs.find(99));
+		System.out.println(bs.find(10));
 
 	}
 
