@@ -1,6 +1,6 @@
 package com.techlabs.data.service;
 
-public class DataService {
+public class DataService{
 
 	private static DataService bucket;
 

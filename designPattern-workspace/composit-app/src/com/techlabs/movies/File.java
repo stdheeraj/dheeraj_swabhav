@@ -13,8 +13,8 @@ public class File implements IStorageItem {
 	}
 
 	@Override
-	public void display() {
-		System.out.println(this.name+"."+this.extension+"("+this.size+" MB)");
+	public void display(int indent) {
+		System.out.println("\t"+this.name+"."+this.extension+"("+this.size+" MB)");
 	}
 
 }

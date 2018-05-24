@@ -16,7 +16,13 @@ public class TestMovies {
 		hindiMovie.addItem(new File("lmno", 400, "mp4"));
 		rootMovie.addItem(hindiMovie);
 		
-		rootMovie.display();
+		rootMovie.addItem(new File("xyz", 300, "mp4"));
+		
+		Folder englishMovie=new Folder("English Movie");
+		englishMovie.addItem(new File("Avenger", 400, "mp4"));
+		rootMovie.addItem(englishMovie);
+		
+		rootMovie.display(1);
 		
 	}
 

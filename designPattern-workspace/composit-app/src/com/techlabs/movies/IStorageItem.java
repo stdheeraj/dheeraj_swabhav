@@ -2,6 +2,6 @@ package com.techlabs.movies;
 
 public interface IStorageItem {
 	
-	public void display();
+	public void display(int indent);
 
 }

@@ -6,7 +6,6 @@ import java.util.List;
 public class Folder implements IStorageItem {
 	
 	private String name;
-	private static int count;
 	private List<IStorageItem> contents;
 
 	public Folder(String name) {
@@ -19,15 +18,18 @@ public class Folder implements IStorageItem {
 	}
 
 	@Override
-	public void display() {
-		System.out.println(this.name);
-		count++;
+	public void display(int indent) {
+		System.out.println("\t"+this.name);
+		
 		for (IStorageItem item : contents) {
 			
-			for(int i=0;i<count;i++)
-				System.out.print("\t");
-			System.out.print(">");
-			item.display();
+				for(int i=0;i<indent;i++)
+					System.out.print("\t");
+				
+				if(item instanceof Folder)
+					item.display(indent+1);
+				else
+					item.display(indent);
 		}
 	}
 
