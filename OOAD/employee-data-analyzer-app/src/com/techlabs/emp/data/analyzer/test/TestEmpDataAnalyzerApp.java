@@ -12,8 +12,8 @@ public class TestEmpDataAnalyzerApp {
 
 	public static void main(String[] args) {
 
-		IDataLoader data=new WebDataLoader("https://swabhav-tech.firebaseapp.com/emp.txt");
-		// IDataLoader data = new FileDataLoader("dataFile.txt");
+		//IDataLoader data=new WebDataLoader("https://swabhav-tech.firebaseapp.com/emp.txt");
+		IDataLoader data = new FileDataLoader("dataFile.txt");
 		Parser parsedData = null;
 		try {
 			parsedData = new Parser(data);

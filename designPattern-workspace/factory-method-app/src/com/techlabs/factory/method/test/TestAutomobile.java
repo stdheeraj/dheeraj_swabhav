@@ -27,12 +27,10 @@ public class TestAutomobile {
 
 		try {
 
-			input = new FileInputStream(
-					"H:/my/Techlabs/Cloud Repository/designPattern-workspace/factory-method-app/src/com/techlabs/factory/method/factory.properties");
+			input = new FileInputStream("H:/my/Techlabs/Cloud Repository/designPattern-workspace/factory-method-app/src/com/techlabs/factory/method/factory.properties");
 			prop.load(input);
 			String className = prop.getProperty("factoryToCreate");
-			Class<IAutoFactory> tempfactory = (Class<IAutoFactory>) Class
-					.forName(className);
+			Class<IAutoFactory> tempfactory = (Class<IAutoFactory>) Class.forName(className);
 			autofactory = tempfactory.newInstance();
 
 		} catch (Exception ex) {
