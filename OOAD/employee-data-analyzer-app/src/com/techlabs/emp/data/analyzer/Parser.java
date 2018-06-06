@@ -27,7 +27,7 @@ public class Parser {
 			emp.setName(empdata[1]);
 			emp.setDesignation(empdata[2]);
 			if (empdata[3].equals("NULL"))
-				emp.setCommission(0);
+				emp.setManagerId(0);
 			else
 				emp.setManagerId(Integer.parseInt(empdata[3]));
 			emp.setDateOfJoining(empdata[4]);
