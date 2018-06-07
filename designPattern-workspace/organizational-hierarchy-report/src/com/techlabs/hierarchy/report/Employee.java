@@ -31,6 +31,10 @@ public class Employee {
 		this.reportees.add(reportee);
 	}
 	
+	public void setReportee(List<Employee> reportees){
+		this.reportees=reportees;
+	}
+	
 	public List<Employee> getReportees() {
 		return reportees;
 	}

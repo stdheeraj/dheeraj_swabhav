@@ -22,17 +22,15 @@ public class TestHierarchyReport {
 		}
 		
 		HierarchyBuilder hbuilder=new HierarchyBuilder(parsedData);
-		Employee ceo = hbuilder.buildHierarchy();
 		
-		System.out.println(ceo.getDesignation()+"("+ceo.getName()+")");
-		for (Employee emp : ceo.getReportees()) {
+		System.out.println(hbuilder.getCEO().getDesignation()+"("+hbuilder.getCEO().getName()+")");
+		for (Employee emp : hbuilder.buildHierarchy().get(hbuilder.getCEO().getId()).getReportees()) {
 			System.out.println("\t\t"+emp.getDesignation()+"("+emp.getName()+")");
 			for (Employee employee : emp.getReportees()) {
 				System.out.println("\t\t\t\t"+employee.getDesignation()+"("+employee.getName()+")");
 			}
 		}
 		
-
 	}
 
 }
