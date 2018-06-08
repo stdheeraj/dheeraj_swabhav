@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <center>
+            
+            <label> Select Color</label></br>
+        
+            <select id="color" onchange="getColor()">
+                <option value="#">Choose Color</option>
+                <option value="#ffb3b3">Red</option>
+                <option value="#b3ffb3">Blue</option>
+                <option value="#b3b3ff">Green</option>
+            </select>
+
+        </center>
+
+        <script type="text/javascript">
+
+            function getColor(){
+                var color = document.getElementById("color").value;
+                document.body.style.backgroundColor = color;
+            }
+
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+<body>
+    <center>
+    
+        <button onclick="loading()">Fetch Data</button></br></br>
+    
+        <img src="spinner.gif" width="100" height="100" id="spinner">
+
+        <p id="loaded">Data has been loaded into system.</p>
+
+    </center>
+
+    <script>
+        "use strict"
+        var spinner = document.getElementById("spinner");
+        var loaded = document.getElementById("loaded");
+        
+        spinner.style.display = "none";
+        loaded.style.display = "none";
+
+        function loading(){
+            spinner.style.display = "block";
+            loaded.style.display = "none";
+            setTimeout(function(){
+                spinner.style.display = "none";
+                loaded.style.display = "block";
+            },3000);
+        }
+
+
+
+    </script>
+        
+</body>
+</html>

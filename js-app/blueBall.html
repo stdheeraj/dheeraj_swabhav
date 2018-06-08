@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <style>
+            .btn {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                border: 1px solid gray;
+            }
+
+            #start{
+                border-radius: 10pt;
+                border: 1px solid gray;
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 5px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+
+        </style>
+    </head>
+<body>
+    <button id="start" onclick="createButton()">Start</button>
+    <label id="attemp"></label><br><br>
+
+    <div id="buttons"></div><br><br>
+    <div id="winner" align="center"></div>
+
+    <script>
+        "strict"
+
+        var attemp = 3;
+        var randomButton = 44 //Math.floor(Math.random()*50);
+        var attempTag=document.getElementById("attemp");
+        var buttons=document.getElementById("buttons");
+        var winner=document.getElementById("Winner");
+
+        function createButton() {
+
+            attempTag.innerHTML = "Attemp: "+ attemp;
+            buttons.innerHTML = "";
+
+            for(i=1; i<=50; i++){
+            buttons.innerHTML += '<button class="btn" value='+i+' onclick="checkButtonValue(this)">'+i+'</button>';
+            if(i%10==0)
+            buttons.innerHTML += '<br>';
+            }
+
+            
+            
+        }
+
+        function checkButtonValue(button){
+           if(button.value==randomButton){
+               button.setAttribute("style","background-color:blue");
+                winner.innerHTML = "You Guessed correctly.<br>Congratulations! You are Winner."
+                attemp = 3;
+                randomButton = Math.floor(Math.random()*50);
+                attempTag.innerHTML = "";
+                buttons.innerHTML = "";
+                winner.innerHTML = "";
+            }
+
+            if(button.value<randomButton){
+                button.setAttribute("style","background-color:red");
+            }
+
+            if(button.value>randomButton){
+                button.setAttribute("style","background-color:green");
+            }
+
+        }
+    </script>
+</body>
+</html>

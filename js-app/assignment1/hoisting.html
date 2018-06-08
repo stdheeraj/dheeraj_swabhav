@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <p id="hoistedVariable"></p>
+        <p id="hoistedFunction"></p>
+
+        <script>
+            x = 5;
+
+            elem = document.getElementById("hoistedVariable");
+            elem.innerHTML = "x = " + x;
+
+            var x, elem;
+
+            hoistedFunction();
+
+            function hoistedFunction() {
+                document.getElementById("hoistedFunction").innerHTML = "This is Hoisted Function.";
+            }
+
+        </script>
+
+    </body>
+</html> 

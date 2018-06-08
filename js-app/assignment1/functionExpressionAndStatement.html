@@ -1,0 +1,24 @@
+<html>
+<body>
+    <script type= "text/javascript">
+    document.write("Function Expression : ");
+        var getRectArea = function(width, height) {
+    return width * height;
+}
+
+document.write("<br>Area of rectangle : "+getRectArea(3,4));
+
+var math = {
+  'factit': function factorial(n) {
+    document.write("<br>"+n);
+    if (n <= 1)
+      return 1;
+    return n * factorial(n - 1);
+  }
+};
+
+
+document.write("<br>factorial: "+math.factit(3));
+    </script>
+</body>
+</html>
