@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html> 
+<body> 
+
+<div style="text-align:center"> 
+  <button onclick="playVideo()">Play</button> 
+  <button onclick="pausevideo()">Pause</button>
+  <button onclick="stopVideo()">Stop</button>
+  <br><br>
+
+  <video id="video" width="420">
+    <source src="Wildlife.mp4" type="video/mp4" />
+    Your Browser doesn't support video element.
+  </video>
+</div> 
+
+<script> 
+var video = document.getElementById("video"); 
+
+function playVideo() { 
+    video.play(); 
+} 
+
+function pausevideo() { 
+    video.pause(); 
+}
+
+function stopVideo() { 
+    video.load();
+}
+
+</script> 
+
+</body> 
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Stop Watch </title>
+</head>
+
+<body>
+
+    <center>
+        <p id="timer"> Time : 00:00:00 </p>
+
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+        <button id="reset">Reset</button>
+
+        <p id="overAllTime"></p>
+    </center>
+
+    <script type="text/javascript">
+
+        (function () {
+            "use strict";
+
+            var start = document.getElementById("start");
+            var pause = document.getElementById("pause");
+            var reset = document.getElementById("reset");
+            var timer = document.getElementById("timer");
+            var overAllTime = document.getElementById("overAllTime");
+
+
+            start.addEventListener('click', startTime);
+            pause.addEventListener('click', pauseTime);
+            reset.addEventListener('click', resetTime);
+
+            var count = 0;
+            var clearTime;
+            var seconds = 0, minutes = 0, hours = 0;
+            var getSeconds, getMinutes, getHours;
+
+            function startWatch() {
+
+                if (seconds === 60) {
+                    seconds = 0;
+                    minutes = minutes + 1;
+                }
+
+                if (minutes === 60) {
+                    minutes = 0;
+                    hours = hours + 1;
+                }
+
+                getMinutes = (minutes < 10) ? ('0' + minutes + ': ') : (minutes + ': ');
+                getHours = (hours < 10) ? ('0' + hours + ': ') : (hours + ': ');
+                getSeconds = (seconds < 10) ? ('0' + seconds) : (seconds);
+
+                timer.innerHTML = 'Time: ' + getHours + getMinutes + getSeconds;
+
+                seconds++;
+
+                clearTime = setTimeout(startWatch, 1000);
+            }
+
+            function startTime() {
+                overAllTime.style.display = "none";
+                start.style.display = "none";
+                startWatch();
+            }
+
+            function pauseTime() {
+                if (seconds !== 0 || minutes !== 0 || hours !== 0) {
+
+                    start.style.display = "inline-block";
+                    overAllTime.style.display = "block";
+                    overAllTime.innerHTML = 'Current Time: ' + getHours + getMinutes + getSeconds;
+                    timer.innerHTML = 'Time: ' + getHours + getMinutes + getSeconds;
+
+                    clearTimeout(clearTime);
+                }
+            }
+
+            function resetTime() {
+                if (seconds !== 0 || minutes !== 0 || hours !== 0) {
+                    overAllTime.style.display = "block";
+                    overAllTime.innerHTML = 'Over All Time: ' + getHours + getMinutes + getSeconds;
+
+                    seconds = 0;
+                    minutes = 0;
+                    hours = 0;
+                    getSeconds = '0' + seconds;
+                    getMinutes = '0' + minutes + ': ';
+                    getHours = '0' + hours + ': ';
+
+                    timer.innerHTML = getHours + getMinutes + getSeconds;
+
+                    start.style.display = "inline-block";
+
+                    clearTimeout(clearTime);
+                }
+            }
+        }());
+
+    </script>
+
+</body>
+
+</html>

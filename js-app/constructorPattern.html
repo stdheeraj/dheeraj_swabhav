@@ -1,0 +1,36 @@
+<html>
+<body>
+    <script>
+        
+        function Employee(rollNo, name){
+
+            var _rollNo, _name;
+
+            if(rollNo>0 && name.length>0){
+                _rollNo = rollNo;
+                _name = name;
+            }
+            else
+                throw "Invalid input";
+
+            this.getName = function(){
+                return _name;
+            }
+
+            this.getRollNo = function(){
+                return _rollNo;
+            }
+
+        }
+
+        var s1 = new Employee(101, "dheeraj");
+
+        console.log(s1.getName());
+        console.log(s1.getRollNo());
+
+        var s2 = new Employee(102, "suraj");
+        console.log(s2);
+
+        </script>
+</body>
+</html>

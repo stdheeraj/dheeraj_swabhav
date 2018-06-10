@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <input type="text" id="name"><br>
+    <div id="messages"></div>
+
+    <script>
+
+        var name = document.getElementById("name");
+        console.log(name);
+        document.getElementById("name").addEventListener('keypress', store);
+        //localStorage.setItem("name", "dheeraj");
+        localStorage.name+=" Chaurasia<br>";
+
+        function store(){
+            localStorage.setItem("name", name.value);
+        }
+
+        document.getElementById("messages").innerHTML = localStorage.getItem("name");
+
+    </script>
+
+</body>
+
+</html>
