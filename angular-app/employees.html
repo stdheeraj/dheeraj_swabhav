@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <script src="angular-1.6.10/angular.js"></script>
+        <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <script src="employees.js"></script>
+    </head>
+<body ng-app="employeeApp">
+    
+        <div ng-controller="employeeCtrl" class="container-fluid">
+
+            <div class="row">
+            <fieldset align="center" class="form-group">
+                <div class="col-lg-3 col-md-2 col-sm-2"></div>
+                <div class="col-lg-6 col-md-8 col-sm-8">
+                    <legend>Enter Employees Data</legend>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">ID</span>
+                        <input type="number" class="form-control" placeholder="Enter Employee ID" ng-model="emp.id">
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon">Name</span>
+                        <input type="text" class="form-control" placeholder="Enter Employee Name" ng-model="emp.name">
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon">ID</span>
+                        <input type="text" class="form-control" placeholder="Enter Role of Employee" ng-model="emp.role">
+                    </div><br>
+                    <button ng-click="addEmployee(emp)"  class="btn btn-primary btn-block form-control">Add Employee</button>
+                </div>
+            </fieldset>
+            </div>
+            
+            <br><br>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-2 col-sm-2"></div>
+                <div class="col-lg-6 col-md-8 col-sm-8">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr class="info">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="employee in employees" class="success">
+                            <td>{{employee.id}}</td>
+                            <td>{{employee.name}}</td>
+                            <td>{{employee.role}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+                
+        </div>
+    
+</body>
+</html>

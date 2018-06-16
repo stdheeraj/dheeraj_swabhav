@@ -1,0 +1,58 @@
+<html>
+   <head>
+      <title>Students API</title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <style>
+        .form-element {
+            margin-bottom: 5px;
+        }
+        .highlight-error {
+            border: 1px solid red;
+        }
+    </style>
+   </head>
+	
+   <body>
+       <center>
+
+            <label id="spinner"><img src="spinner.gif" width="20" height="20">Loading Data</label><br>
+            <button id = "postData">Post Data</button><br><br>
+            <div id="error"></div>
+
+            <div id = "studentList">
+                <table border="5">
+                    <thead>
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>EMail</th>
+                            <th>Date</th>
+                            <th>Gender</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student"></tbody>
+                </table>
+            </div>
+
+            <fieldset id="fillForm">
+                <legend>Fill the Details</legend>
+
+                Roll No: <input type="number" name="rollNo" id="rollNo" class="form-element"><br><br>
+                Name: <input type="text" name="name" id="name" class="form-element"><br><br>
+                Age: <input type="number" name="age" id="age" class="form-element"><br><br>
+                EMail: <input type="email" name="email" id="email" class="form-element"><br><br>
+                Date: <input type="date" name="date" id="date" class="form-element"><br><br>
+                Gender: <input type="radio" name="gender" id="male" class="form-element" class="gender">Male
+                        <input type="radio" name="gender" id="female" class="form-element" class="gender">Female
+                <br>
+                <button id="submitData">Submit</button>
+
+            </fieldset>
+    </center>
+
+    <script src="student-api.js"></script>
+
+   </body>
+</html>

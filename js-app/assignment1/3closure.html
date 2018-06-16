@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <p id="result">0</p>
+        <button type="button" onclick="myFunction()">Increase Count</button>
+
+        <script>
+            var add = (function () {
+                var counter = 0;
+                return function () {
+                    counter += 1; 
+                    return counter;
+                    }
+            })();
+            function myFunction(){
+                document.getElementById("result").innerHTML = add();
+            }
+        </script>
+    </body>
+</html>

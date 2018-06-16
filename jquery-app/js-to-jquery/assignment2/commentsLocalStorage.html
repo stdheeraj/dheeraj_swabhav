@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <input type="text" id="name">
+    <div id="names"></div>
+
+    <script>
+
+        $(document).ready(function () {
+            'use strict'
+
+            var getName = $('#name');
+            var names = $('#names');
+            
+            getName.keypress(addName);
+           
+            var jsonData = JSON.parse(localStorage.getItem("jsonData")) || [];
+            showData();
+
+            function addName(event) {
+                if (event.which === 13) {
+                    jsonData.push(getName.val());
+                    localStorage.setItem("jsonData", JSON.stringify(jsonData));
+                    showData();
+                }
+            }
+
+            function showData() {
+
+                names.html('');
+    
+                for (var i = jsonData.length - 1; i >= 0; i--) {
+                    names.html(names.html()+
+                    "<button id='" + i + "' value='" + i + "'>X</button> <label>" + 
+                    jsonData[i] + "</label><br>");
+                }
+
+                for (var i = 0; i < jsonData.length; i++) {
+                    $('#'+i).click(deleteData);
+                }
+            }
+
+            function deleteData() {
+                jsonData.splice(this.value, 1);
+                showData();
+                localStorage.setItem("jsonData", JSON.stringify(jsonData));
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

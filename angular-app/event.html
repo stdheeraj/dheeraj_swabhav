@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <script src="angular-1.6.10/angular.js"></script>
+    </head>
+<body ng-app="clickEvent">
+    <center>
+    <div ng-controller="ClickEventController">
+            <button ng-click="load()">Load</button>
+            <section>
+                <h3>{{developer.name}}</h3>
+                <h5><img ng-src="{{developer.profilePicture}}" height="50%"></h5>
+            </section>
+    </div>
+    </center>
+
+    <script src="event.js"></script>
+</body>
+</html>

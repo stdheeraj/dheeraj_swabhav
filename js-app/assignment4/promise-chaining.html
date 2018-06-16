@@ -1,0 +1,49 @@
+<html>
+<body>
+    <script>
+    
+        var dataService = function(){
+
+            var obj={};
+
+            obj.getDataAsync = function(){
+
+                var p = new Promise((resolve,reject) => {
+                    var r = Math.random()*10;
+
+                    if(r > 5)
+                        resolve("\nSuccess "+r);
+                    else{
+                        var e =new Error("\nERROR");
+                        reject(e);
+                    }
+
+                });
+
+                return p;
+            }
+
+            return obj;
+
+        }();
+
+        dataService.getDataAsync()
+                    .then(fnSuccess)
+                    .then(otherData => dataService.getDataAsync())
+                    .then(fnSuccess)
+                    .catch(fnError);
+                    
+
+        function fnSuccess(d){
+            console.log('inside success'+d)
+        }
+
+        function fnError(e){
+            console.log('inside error ::'+e)
+        }
+
+        console.log("End of script");
+
+    </script>
+</body>
+</html>

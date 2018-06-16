@@ -1,0 +1,79 @@
+<html>
+<body>
+    <script>
+        
+        var calculator = function(){
+
+            var obj={};
+
+            var company = "Swabhav Techlabs";
+            var developer = "dheeraj";
+
+            obj.cubeEvenNo = function(no){
+
+                if(no%2 == 0)
+                    return no*no*no;
+                else
+                    throw "NOT-EVEN";
+
+            }
+
+            obj.getCompany = function(){
+                    return company;
+            }
+
+            obj.getDeveloper = function(){
+                    return company;
+            }
+
+            return obj;
+
+        }
+
+        var c = calculator();
+        console.log(c);
+        console.log(c.cubeEvenNo(4));
+        console.log(c.getCompany);
+
+
+    </script>
+
+    <script>
+        
+        var student = function(){
+
+            var studentDetail={};
+            var name, rollNo;
+
+            studentDetail.setRollNo = function(prollNo){
+                if(prollNo>0)
+                    rollNo=prollNo;
+                else
+                    throw "Roll No must be greater than 0."
+            }
+
+            studentDetail.setName = function(pname){
+                    name=pname;
+            }
+
+            studentDetail.getRollNo = function(){
+                    return rollNo;
+            }
+
+            studentDetail.getName = function(){
+                    return name;
+            }
+
+            return studentDetail;
+        }
+
+        var s = student();
+        s.setRollNo(101);
+        s.setName("Dheeraj");
+        console.log("Roll No: "+s.getRollNo());
+        console.log("Name: "+s.getName());
+        console.log(s);
+
+    </script>
+</body>
+</html>

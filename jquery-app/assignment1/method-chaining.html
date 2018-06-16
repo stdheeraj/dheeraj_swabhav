@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                $("#p1").css("color", "blue")
+                    .css("display", "block")
+                    .css("background", "#b3b3ff")
+                    .animate({width: "50%"})
+                    .slideUp(1000)
+                    .animate({width: "500px"})
+                    .slideDown(2000);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <p id="p1">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+    <br>
+    <button id="btn">slide the paragraph and make it blue</button>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+<body>
+    <center>
+        <p>Creating Object from JSON</p><br><br>
+        <p id="jsonData"></p>
+    </center>
+   
+
+    <script>
+
+        $(document).ready(function() {
+            'use strict'
+
+            var employee = JSON.parse('{ "id":101, "name":"Dheeraj", "position":"Developer"}');
+            $('#jsonData').html("ID: " + employee.id + ",<br>Name: " + employee.name+",<br>Position: "+ employee.position);
+            
+        });
+
+    </script>
+
+</body>
+</html>

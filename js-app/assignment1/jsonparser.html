@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <center>
+        <p>Creating Object from JSON</p><br><br>
+        <p id="jsonData"></p>
+    </center>
+   
+
+    <script>
+
+        var object = JSON.parse('{ "id":101, "name":"Dheeraj", "position":"Developer"}');
+        document.getElementById("jsonData").innerHTML = "ID: " + object.id + ",<br>Name: " + object.name+",<br>Position: "+ object.position;
+
+    </script>
+
+</body>
+</html>

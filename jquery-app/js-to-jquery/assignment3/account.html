@@ -1,0 +1,72 @@
+<html>
+<body>
+
+    <script>
+    
+        function Account(accountNo, name, amount){
+
+            var _accountNo, _name, _amount;
+
+            if(accountNo>0 && name.length>0 && amount>0){
+                _accountNo = accountNo;
+                _name = name;
+                _amount = amount;
+            }
+            else
+                throw "Invalid input";
+
+            this.getAccountNo = function(){
+                return _accountNo;
+            }
+
+            this.getName = function(){
+                return _name;
+            }
+
+            this.getAmount = function(){
+                return _amount;
+            }
+
+            this.deposit = function(amt){
+                if(amt>0)
+                    _amount+=amt;
+                else
+                    throw "Amount can't be negative.";
+            }
+
+            this.withdraw = function(amt){
+                if(_amount-amt>500)
+                    _amount-=amt;
+                else
+                    throw "Can't withdraw amount"
+            }
+
+        }
+
+        var acc1 = new Account(101, "dheeraj", 1000);
+
+        console.log("Account Holder Name: "+acc1.getName());
+        console.log("Current balance: "+acc1.getAmount());
+
+        acc1.deposit(500);
+        console.log("After deposit, Balance: "+acc1.getAmount());
+
+        acc1.withdraw(200);
+        console.log("After withdraw, Balance: "+acc1.getAmount());
+
+        var acc2 = new Account(102, "suraj", 5000);
+
+        console.log("Account Holder Name: "+acc2.getName());
+        console.log("Current balance: "+acc2.getAmount());
+
+        //acc2.deposit(-500);
+        //console.log("After deposit, Balance: "+acc2.getAmount());
+
+        acc2.withdraw(10000);
+        console.log("After withdraw, Balance: "+acc2.getAmount());
+
+
+    
+    </script>
+</body>
+</html>

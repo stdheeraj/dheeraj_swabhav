@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <title>Students API</title>
+    <script src="angular-1.6.10/angular.js"></script>
+    <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="student-api.js"></script>
+    <style>
+        .form-element {
+            margin-bottom: 5px;
+        }
+
+        .highlight-error {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body ng-app="studentAPI">
+    <center ng-controller="studentAPICtrl">
+
+        <label id="spinner">
+            <img src="spinner.gif" width="20" height="20">Loading Data</label>
+        <br>
+        <button id="postData" ng-click="postData()">Post Data</button>
+        <button ng-click="getStudent()">Get Data</button>
+        <br>
+        <br>
+        <div id="error"></div>
+
+        <div id="studentList" class="table-responsive">
+            <table border="5" class="table table-hover">
+                <thead>
+                    <tr class="active">
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>EMail</th>
+                        <th>Date</th>
+                        <th>Gender</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="student in students" class="success active">
+                    <td>{{student.rollNo}}</td>
+                    <td>{{student.name}}</td>
+                    <td>{{student.age}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.date | date}}</td>
+                    <td>{{student.isMale ? 'Male' : 'Female'}}</td>
+                    <td>
+                        <button value="{{student.rollNo}}" ng-click="deleteStudent(student.rollNo)">Delete</button>
+                        <button value="{{student.rollNo}}" ng-click="updateStudent(student.rollNo)">Update</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <fieldset id="fillForm">
+            <legend>Fill the Details</legend>
+
+            Roll No: <input type="number" name="rollNo" id="rollNo" class="form-element" ng-model="student.rollNo"><br><br>
+            Name: <input type="text" name="name" id="name" class="form-element" ng-model="student.name"><br><br>
+            Age: <input type="number" name="age" id="age" class="form-element" ng-model="student.age"><br><br>
+            EMail: <input type="email" name="email" id="email" class="form-element" ng-model="student.email"><br><br>
+            Date: <input type="date" name="date" id="date" class="form-element" ng-model="student.date"><br><br>
+            Gender: <input type="radio" name="gender" id="male" class="form-element" class="gender" ng-model="student.isMale" ng-value="true">Male
+                    <input type="radio" name="gender" id="female" class="form-element" class="gender" ng-model="student.isMale" ng-value="false">Female
+            <br>
+            <button id="submitData" ng-click="createStudent(student)">Submit</button>
+            <button id="submitData" ng-click="update(student)">Update</button>
+
+        </fieldset>
+
+    </center>
+
+</body>
+
+</html>

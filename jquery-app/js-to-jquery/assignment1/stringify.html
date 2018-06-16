@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    
+    <body>
+        
+    <p id="developer"></p>
+
+    <script>
+
+        $(document).ready(function() {
+                'use strict'
+
+                var developer = [ "Dheeraj", "Prasad", "Pratik", "Vipul" ];
+                var jsonData = JSON.stringify(developer);
+
+                $('#developer').html(jsonData);
+                
+            });
+
+    </script>
+
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+<body>
+    <script>
+        var balance=500;
+
+        function fnDeposit(amt, fn){
+            balance+=amt;
+            console.log("Balance changed to "+balance);
+            fn(balance);
+        }
+
+        fnDeposit(100, function(currentBalance){
+            console.log("SMS alert for deposit. Current Balance is "+currentBalance);
+        });
+
+        fnDeposit(300, emailAlert);
+        
+        function emailAlert(currentBalance){
+            console.log("Email alert for deposit. Current Balance is "+currentBalance);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="result"></p>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        document.getElementById("result").innerHTML = myObj.pets[0].animal;
+    }
+};
+xmlhttp.open("GET", "json_data.txt", true);
+xmlhttp.send();
+</script>
+
+<p>data file link: <a href="json_data.txt" target="_blank">json_result.txt</a></p>
+
+</body>
+</html>

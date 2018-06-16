@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <input type="text" id="name">
+    <div id="names"></div>
+
+<script>
+    
+    (function(){
+        
+        "use strict";
+        var getName = document.getElementById("name");
+        var names=document.getElementById("names");
+        getName.addEventListener('keypress', addName);
+        
+        var jsonData = JSON.parse(localStorage.getItem("jsonData")) || [];
+        showData();
+
+        function addName() {
+            if(event.which===13){
+                jsonData.push(getName.value);
+                localStorage.setItem("jsonData",JSON.stringify(jsonData));
+                showData();
+            }
+        }
+
+        function showData() {
+
+            names.innerHTML="";
+
+            for(var i=jsonData.length-1; i>=0; i--){
+                names.innerHTML+="<button id='"+i+"' value='"+i+"'>X</button> <label>"+jsonData[i]+"</label><br>";
+            }
+
+            for(var i=0;i<jsonData.length;i++){
+                document.getElementById(i).addEventListener('click',deleteData);
+            }
+        }
+
+        function deleteData() {
+            jsonData.splice(this.value,1);
+            showData();
+            localStorage.setItem("jsonData",JSON.stringify(jsonData));
+        }
+
+    }())
+
+</script>
+
+</body>
+</html>

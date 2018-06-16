@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+<body>
+
+    <script>
+
+        $(document).ready(function() {
+            'use strict'
+
+            var a = 10;
+            var b = 5;
+            document.write("<br>a = "+a+", b = "+b);
+            function calculate1() {
+                var a = 20;
+                var b = 10;
+                var c = a+b;
+                document.write("<br>a = "+a+", b = "+b+", c = "+c);
+                
+            }
+            calculate1();
+            document.write("<br>After calling calculate1 function :");
+            document.write("<br>a = "+a+", b = "+b);
+            
+
+            var x = 10;
+            var y = 5;
+            document.write("<br><br>x = "+x+", y = "+y);
+            function calculate2() {
+                x = 20;
+                y = 10;
+                var z = x+y;
+                document.write("<br>Polluting global name space");
+                document.write("<br>x = "+x+", y = "+y+", z = "+z);
+                
+            }
+            calculate2();
+            document.write("<br>After calling calculate2 function :");
+            document.write("<br>x = "+x+", y = "+y);
+
+        });
+    </script>  
+</body>
+</html>

@@ -1,5 +1,118 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online Test</title>
+</head>
 <body>
-    <script></script>
+        <table align="center">
+            <tr>
+                <th><h1>Online Test</h1></th>
+            </tr>
+            <tr>
+                <td align="center"><button id="start">Start Online Test</button></td>
+            </tr>
+            <tr>
+                <td><div id="question-list"></div></td>
+            </tr>
+            <tr>
+                <td align="center"><div id="result"></div></td>
+            </tr>
+            <tr>
+                <td align="center"><button id="submit">Submit</button></td>
+            </tr>
+        </table>
+        
+
+    <script>
+        "use strict";
+
+        (function(){
+
+            var questionList = document.getElementById('question-list');
+            var start = document.getElementById('start');
+            var submit = document.getElementById('submit');
+            var result = document.getElementById('result');
+            var questions={};
+            var questionSequence;
+            var score=0;
+
+            start.addEventListener('click', startTest);
+            submit.addEventListener('click', submitTest);
+
+            //start.style.display = "inline-block";
+            //overAllTime.style.display = "block";
+            submit.style.display = "none";
+
+            function startTest(){
+                start.style.display = "none";
+                submit.style.display = "none";
+                result.style.display = "none";
+
+
+                score = 0;
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        questions = JSON.parse(this.responseText);
+                        questionSequence=[];
+                        getRandomQuestion();
+                        getQuestionList();
+                    }
+                };
+                xhttp.open("GET", "question-list.json", true);
+                xhttp.send();
+            }
+
+            function getRandomQuestion(){
+                var random = Math.round((Math.random() * 5) % 4);
+                if(questionSequence.length != 5){
+                    questionSequence.push(random);
+                    getRandomQuestion();
+                }
+            }
+
+            function getQuestionList(){
+                
+                questionList.innerHTML="";
+                
+                for(var i in questionSequence){
+                    var icopy=parseInt(i)+1;
+                    questionList.innerHTML+='<br>('+icopy+')<label>'+questions[questionSequence[i]].question+'</label><br>';
+                    
+                    for(var key in questions[questionSequence[i]].options){
+                        questionList.innerHTML+='<input type="radio" class="answers" id="question'+questionSequence[i]+'">'+questions[questionSequence[i]].options[key]+'<br>'; 
+                    }
+                    
+                    questionList.style.display = "block";
+                    submit.style.display = "inline-block";
+                }
+            } 
+
+            function submitTest(){
+                
+                submit.style.display = "none";
+                questionList.style.display = "none";
+                start.style.display = "block";
+                result.style.display = "block";
+
+                result.innerHTML='<h3 align="center">Your score: '+percentageCalculator()+'%</h3>';
+                start.innerHTML="Restart Test";
+            }
+
+            function percentageCalculator(){
+                for(var i in questionSequence){
+                    var answerArray = questionList.querySelectorAll('.answers');
+                    var selectedAnswer = (answerArray[i].querySelector('input[name=question'+i+']:checked')||{}).value;
+                    if(selectedAnswer != undefined && questions[questionSequence[i]].answer == selectedAnswer){
+                            score++;
+                    }
+                }
+                
+                return (score*100)/questions.length;
+            }
+
+        })();
+    </script>
 </body>
 </html>

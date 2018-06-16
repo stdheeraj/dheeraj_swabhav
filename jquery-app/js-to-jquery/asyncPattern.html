@@ -1,0 +1,39 @@
+<html>
+<body>
+    <script>
+    
+        var dataService = function(){
+
+            var obj={};
+
+            obj.getData=function(){
+                return Math.random()*10;
+            }
+
+            obj.getDataAsync = function(callback){
+                setTimeout(function(){
+                    var r = Math.random()*100;
+                    if(r > 50)
+                        callback("Success "+r);
+                    else
+                        callback("ERROR:- NOT-Allow");
+                    },0)
+            }
+
+            return obj;
+
+        }();
+
+        var d = dataService.getData();
+
+        console.log(d);
+
+        dataService.getDataAsync(function(r){
+            console.log(r);
+        });
+
+        console.log("End of script");
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script src="angular-1.6.10/angular.js"></script>
+    </head>
+<body ng-app="modA">
+
+    <h1>Invoice</h1>
+    <section ng-controller="InvoiceController">
+        <h2>Developer Name: {{developer}}</h2>
+        <h2>Cost: {{invoice.cost}}</h2>
+    </section>
+
+    <h1>Address</h1>
+    <section ng-controller="AddressController">
+            <h2>City: {{address.city}}</h2>
+            <h2>State: {{address.state}}</h2>
+            <h2>Pincode: {{address.pincode}}</h2>
+    </section>
+
+    <h1>Order</h1>
+    <section ng-controller="OrderController">
+            <h2>Product Name: {{order.product}}</h2>
+            <h2>Quantity: {{order.quantity}}</h2>
+            <h2>Product cost: {{order.cost}}</h2>
+    </section>
+
+    <script src="module.js"></script>
+</body>
+</html>

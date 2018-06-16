@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <style>
+            .btn {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                border: 1px solid gray;
+            }
+
+            #start{
+                border-radius: 10pt;
+                border: 1px solid gray;
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 5px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+
+            #attemp{
+                float: right;
+            }
+
+        </style>
+    </head>
+<body>
+    <button id="start" onclick="createButton()">Start</button>
+    <label id="attemp"></label><br><br>
+
+    <div id="buttons" align="center"></div><br><br>
+    <div id="winner" align="center"></div>
+
+    <script>
+
+        "use strict";
+        /*
+        (function(){
+        
+        document.getElementById("start").addEventListener("click", createButton);
+        var btnclass = document.getElementsByClassName("btn");
+        var temp = btnclass[1];
+        console.log(temp);
+        for (var i = 0; i < btnclass.length; i++) {
+            btnclass[i].addEventListener("click", checkButtonValue);
+        }
+        */
+
+        var attemp = 3;
+        var randomButton = Math.floor(Math.random()*50);
+        var attempTag=document.getElementById("attemp");
+        var buttons=document.getElementById("buttons");
+        var winner=document.getElementById("winner");
+
+        function createButton() {
+
+            attempTag.innerHTML = "Attemp: "+ attemp;
+            buttons.innerHTML = "";
+            winner.innerHTML = "";
+           
+            for(var i=1; i<=50; i++){
+                
+                buttons.innerHTML += '<button class="btn" value='+i+' onclick=checkButtonValue(this)>'+i+'</button>';
+                
+                if(i%10==0)
+                    buttons.innerHTML += '<br>';
+            
+            }
+
+        }
+
+        function checkButtonValue(button){
+
+           // console.log(button.target);
+
+            if(button.value==randomButton){
+                button.setAttribute("style","background-color:blue");
+                winner.innerHTML = "You Guessed correctly.<br>Congratulations! You are Winner.";
+                setTimeout(clear,3000);
+            } 
+            else if(button.value < randomButton){
+                button.setAttribute("style","background-color:red");
+                attemp--;
+                attempTag.innerHTML = "Attemp: "+ attemp;
+                if(attemp == 0){
+                    setTimeout(clear,2000);
+                    winner.innerHTML = "Your attemp is over.";
+                }
+                    
+            } 
+            else{
+                button.setAttribute("style","background-color:green");
+                attemp--;
+                attempTag.innerHTML = "Attemp: "+ attemp;
+                if(attemp == 0){
+                    setTimeout(clear,2000);
+                    winner.innerHTML = "Your attemp is over.";
+                }
+            }
+
+        }
+
+        function clear(){
+            attemp = 3;
+            randomButton = Math.floor(Math.random()*50);
+            attempTag.innerHTML = "";
+            buttons.innerHTML = "";
+            winner.innerHTML = "";
+        }
+
+       // }())
+
+    </script>
+</body>
+</html>

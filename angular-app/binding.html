@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <script src="angular-1.6.10/angular.js"></script>
+        <script src="binding.js"></script>
+    </head>
+<body ng-app="binding">
+    <center>
+        <h1>One Time Binding</h1>
+        <section ng-controller="bindingController">
+            <h2>{{emp.id}}</h2>
+            <h2>{{emp.name}}</h2>
+            <h2>{{emp.role}}</h2>
+        </section>
+    </center>
+    <center ng-controller="bindingController">
+        <h1>One Way Binding</h1>
+        <section>
+            <h2>{{emp.id}}</h2>
+            <h2>{{emp.name}}</h2>
+            <h2>{{emp.role}}</h2>
+        </section>
+
+        <h1>Two Way Binding</h1>
+        <section>
+            <input type="number" ng-model="emp.id"><br><br>
+            <input type="text" ng-model="emp.name"><br><br>
+            <input type="text" ng-model="emp.role">
+        </section>
+    </center>
+
+    
+</body>
+</html>

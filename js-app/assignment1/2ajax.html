@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p><b>Status:</b> <span id="field1"></span></p>
+<p><b>Status text:</b> <span id="field2"></span></p>
+<p><b>Response:</b> <span id="field3"></span></p>
+
+<button onclick="loadDoc('note.xml')">Get XML data</button>
+
+<script>
+function loadDoc(url) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById('field1').innerHTML = this.status;
+      document.getElementById('field2').innerHTML = this.statusText;
+      document.getElementById('field3').innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+</script>
+
+</body>
+</html>

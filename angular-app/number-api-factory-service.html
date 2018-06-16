@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="angular-1.6.10/angular.js"></script>
+</head>
+
+<body ng-app="numbersAPI">
+    <div ng-controller="numbersAPICtrl" class="container-fluid">
+        <div class="row">
+            <fieldset align="center" class="form-group">
+                <div class="col-lg-3 col-md-2 col-sm-2"></div>
+                <div class="col-lg-6 col-md-8 col-sm-8">
+                    <legend>Number API</legend>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">Number</span>
+                        <input type="number" class="form-control" ng-model="numberInput">
+                    </div>
+                    <br>
+                    <button ng-click="search()" class="btn btn-success form-control">Search</button>
+                </div>
+            </fieldset>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-2 col-sm-2"></div>
+            <div class="col-lg-6 col-md-8 col-sm-8">
+                <p class="text-justify bg-primary">{{response}}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        angular.module('numbersAPI', [])
+            .controller('numbersAPICtrl', function ($scope, dataService) {
+                // console.log("inside numberapi controller");
+                $scope.search = function () {
+                    //  console.log($scope.numberInput);
+                    var url = "http://numbersapi.com/" + $scope.numberInput;
+                    dataService.getData(url)
+                        .then(function (response) {
+                           // console.log(response.data);
+                            $scope.response = response.data;
+                        });
+                }
+
+            });
+
+        angular.module('numbersAPI')
+            .factory('dataService', function ($http) {
+
+               // console.log("inside numberapi factory");
+                var obj = {};
+                obj.getData = function (url) {
+                    //  console.log($scope.numberInput);
+                    return $http.get(url);
+                }
+
+                return obj;
+
+            });
+
+    </script>
+</body>
+
+</html>

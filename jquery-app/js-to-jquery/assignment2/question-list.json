@@ -1,0 +1,56 @@
+[{
+		"id": "1",
+		"question": "Javascript is _________ language.",
+		"options": {
+			"a": "Programming",
+			"b": "Application",
+			"c": "None of These",
+			"d": "Scripting"
+		},
+		"answer": "d"
+	},
+	{
+		"id": "2",
+		"question": "JavaScript is ______ Side Scripting Language.",
+		"options": {
+			"a": "Server",
+			"b": "ISP",
+			"c": "None of These",
+			"d": "Browser"
+		},
+		"answer": "d"
+	},
+	{
+		"id": "3",
+		"question": "JavaScript is designed for following purpose -",
+		"options": {
+			"a": "To Style HTML Pages",
+			"b": "To add interactivity to HTML Pages",
+			"c": "To Perform Server Side Scripting Opertion",
+			"d": "To Execute Query Related to DB on Server"
+		},
+		"answer": "b"
+	},
+	{
+		"id": "4",
+		"question": "JavaScript is can be written -",
+		"options": {
+			"a": "directly into JS file and included into HTML",
+			"b": "None of these",
+			"c": "directly on the Server Script",
+			"d": "Both (a) and (b)"
+		},
+		"answer": "a"
+	},
+	{
+		"id": "5",
+		"question": "JavaScript is an ________ language.",
+		"options": {
+			"a": "compiled",
+			"b": "interpreted",
+			"c": "Both (a) & (b)",
+			"d": "None of above"
+		},
+		"answer": "b"
+	}
+]

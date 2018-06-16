@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+<body>
+
+<p>
+  <b>Status Code:</b> <span id="status"></span><br>
+  <b>Status Message:</b> <span id="status-message"></span><br>
+  <b>Response Message:</b> <span id="response-message"></span>
+</p>
+
+<button>Fetch data</button>
+
+<script>
+  $(document).ready(function() {
+    'use strict'
+
+    $('button').click(function(){
+      loadDoc('data.xml');
+    });
+
+    function loadDoc(url) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          $('#status').html(this.status);
+          $('#status-message').html(this.statusText);
+          $('#response-message').html(this.responseText);
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
