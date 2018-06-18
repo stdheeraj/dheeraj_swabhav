@@ -1,0 +1,2 @@
+SELECT *
+FROM Employee CROSS JOIN Name

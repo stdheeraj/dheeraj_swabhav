@@ -3,7 +3,7 @@
 <head>
     <title>Students API</title>
     <script src="angular-1.6.10/angular.js"></script>
-    <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
     <script src="student-api.js"></script>
     <style>
         .form-element {
@@ -13,22 +13,43 @@
         .highlight-error {
             border: 1px solid red;
         }
+
+        .buttonload {
+                background-color: #4CAF50; /* Green background */
+                border: none; /* Remove borders */
+                color: white; /* White text */
+                padding: 12px 24px; /* Some padding */
+                font-size: 16px; /* Set a font-size */
+            }
+            
+            /* Add a right margin to each icon */
+            .fa {
+                margin-left: -12px;
+                margin-right: 8px;
+            }
     </style>
+
 </head>
 
 <body ng-app="studentAPI">
     <center ng-controller="studentAPICtrl">
 
-        <label id="spinner">
-            <img src="spinner.gif" width="20" height="20">Loading Data</label>
+        <div ng-if="isLoading">
+            <img src="resource/SkinnySeveralAsianlion.gif" width="20" height="20">Loading...
+        </div>
         <br>
-        <button id="postData" ng-click="postData()">Post Data</button>
-        <button ng-click="getStudent()">Get Data</button>
-        <br>
-        <br>
-        <div id="error"></div>
 
-        <div id="studentList" class="table-responsive">
+        <div ng-if="!isLoading">
+
+        <button ng-click="displayForm()" ng-if="!isFormDisplay && !isError" ng-disabled="isDisabled" class="btn btn-secondary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span><strong>Add New Student</strong></span>
+        </button>
+        <br>
+        <br>
+        <div ng-if="isError">{{error}}</div>
+
+        <div class="table-responsive" ng-if="!isFormDisplay && !isError">
             <table border="5" class="table table-hover">
                 <thead>
                     <tr class="active">
@@ -49,28 +70,71 @@
                     <td>{{student.date | date}}</td>
                     <td>{{student.isMale ? 'Male' : 'Female'}}</td>
                     <td>
-                        <button value="{{student.rollNo}}" ng-click="deleteStudent(student.rollNo)">Delete</button>
-                        <button value="{{student.rollNo}}" ng-click="updateStudent(student.rollNo)">Update</button>
+                        <button ng-click="deleteStudent(student.rollNo)" class="btn btn-primary">
+                            <span ng-if="isProcessing">
+                                <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
+                            </span>
+                            <span ng-if="!isProcessing">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </span>
+                        </button>
+                        <button ng-click="getStudent(student.rollNo)" class="btn btn-primary">
+                            <span ng-if="isProcessing">
+                                <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
+                            </span>
+                            <span ng-if="!isProcessing">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </span>
+                        </button>
                     </td>
                 </tr>
             </table>
         </div>
 
-        <fieldset id="fillForm">
+        <fieldset ng-if="isFormDisplay && !isError">
             <legend>Fill the Details</legend>
 
-            Roll No: <input type="number" name="rollNo" id="rollNo" class="form-element" ng-model="student.rollNo"><br><br>
-            Name: <input type="text" name="name" id="name" class="form-element" ng-model="student.name"><br><br>
-            Age: <input type="number" name="age" id="age" class="form-element" ng-model="student.age"><br><br>
-            EMail: <input type="email" name="email" id="email" class="form-element" ng-model="student.email"><br><br>
-            Date: <input type="date" name="date" id="date" class="form-element" ng-model="student.date"><br><br>
-            Gender: <input type="radio" name="gender" id="male" class="form-element" class="gender" ng-model="student.isMale" ng-value="true">Male
-                    <input type="radio" name="gender" id="female" class="form-element" class="gender" ng-model="student.isMale" ng-value="false">Female
+            Roll No: <input type="number" name="rollNo" class="form-element" ng-model="student.rollNo">
+            <span ng-if="isRollNoError">Invalid Roll No</span><br><br>
+            Name: <input type="text" name="name" class="form-element" ng-model="student.name">
+            <span ng-if="isNameError">Invalid Name</span><br><br>
+            Age: <input type="number" name="age" class="form-element" ng-model="student.age">
+            <span ng-if="isAgeError">Invalid Age</span><br><br>
+            EMail: <input type="email" name="email" class="form-element" ng-model="student.email">
+            <span ng-if="isEMailError">Invalid EMail</span><br><br>
+            Date: <input type="date" name="date" class="form-element" ng-model="student.date">
+            <span ng-if="isDateError">Invalid Date</span><br><br>
+            Gender: 
+            <input type="radio" name="gender" class="form-element" ng-model="student.isMale" ng-value="true">Male
+            <input type="radio" name="gender" class="form-element" ng-model="student.isMale" ng-value="false">Female
+            <span ng-if="isGenderError">Invalid Gender</span>
             <br>
-            <button id="submitData" ng-click="createStudent(student)">Submit</button>
-            <button id="submitData" ng-click="update(student)">Update</button>
+            <button ng-if="isSubmit" ng-click="createStudent(student)" class="btn btn-success">
+                <span ng-if="isProcessing">
+                    <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
+                    Submitting
+                </span>
+                <span ng-if="!isProcessing">Submit</span>
+            </button>
+            <button ng-if="isSubmit" ng-click="student={}" class="btn btn-success">
+                    <span ng-if="isProcessing">
+                        <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
+                        Clearing
+                    </span>
+                    <span ng-if="!isProcessing">Clear</span>
+            </button>
+            <button ng-if="!isSubmit" ng-click="updateStudent(student)" class="btn btn-success">
+                <span ng-if="isProcessing">
+                    <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
+                    Updating
+                </span>
+                <span ng-if="!isProcessing">Update</span>
+            </button>
 
         </fieldset>
+
+        </div>
+
 
     </center>
 

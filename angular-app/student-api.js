@@ -1,38 +1,181 @@
 angular.module('studentAPI', [])
     .controller('studentAPICtrl', function ($scope, dataService) {
 
-        $scope.createStudent = function (student) {
-            dataService.postData(student);
-            $scope.student = {};
-            $scope.getStudent();
+        $scope.isFormDisplay=false;
+        $scope.isSubmit = true;
+        $scope.isError=false;
+        $scope.isRollNoError=false;
+        $scope.isNameError=false;
+        $scope.isAgeError=false;
+        $scope.isEMailError=false;
+        $scope.isDateError=false;
+        $scope.isGenderError=false;
+        $scope.isProcessing=false;
+        $scope.isLoading=false;
+
+        $scope.isValidData = function(student){
+
+            var errorStatus = 1;
+
+            if (student == undefined) {
+                $scope.isRollNoError=true;
+                $scope.isNameError=true;
+                $scope.isAgeError=true;
+                $scope.isEMailError=true;
+                $scope.isDateError=true;
+                $scope.isGenderError=true;
+                errorStatus = 0;
+                return errorStatus;
+            }
+    
+            if (student.rollNo == undefined || student.rollNo == "" || isNaN(student.rollNo) || student.rollNo < 1) {
+                $scope.isRollNoError=true;
+                errorStatus = 0;
+            }
+
+            if (student.name == undefined || student.name == "" || !isNaN(student.name)) {
+                $scope.isNameError=true;
+                errorStatus = 0;
+            }
+    
+            if (student.age == undefined || student.age == "" || isNaN(student.age) || student.age < 1) {
+                $scope.isAgeError=true;
+                errorStatus = 0;
+            }
+    
+            if (student.email == undefined || student.email == "") {
+                $scope.isEMailError=true;
+                errorStatus = 0;
+            }
+
+            if (!Date.parse(student.date)) {
+                $scope.isDateError=true;
+                errorStatus = 0;
+            }
+
+            if (student.isMale == undefined) {
+                $scope.isGenderError=true;
+                errorStatus = 0;
+            }
+            
+            return errorStatus;
         }
 
-        $scope.updateStudent = function (rollNo) {
-            dataService.getSingleData(rollNo)
-            .then(function (student) {
-                $scope.student = student.data;
-                $scope.student.date = new Date(student.data.date);
-            });
+        $scope.displayError = function(error){
+            if(error.config.method == "GET")
+                $scope.error = "Error while getting student data";
 
+            if(error.config.method == "POST")
+                $scope.error = "Error while submitting student data";
+
+            if(error.config.method == "PUT")
+                $scope.error = "Error while updating student data";
+            
+            if(error.config.method == "DELETE")
+                $scope.error = "Error while deleting student data";
+            
+            $scope.isError=true;
         }
 
-        $scope.update = function (student) {
-            dataService.updateData(student);
-        }
-
-        $scope.deleteStudent = function (rollNo) {
-            dataService.deleteData(rollNo);
-            $scope.getStudent();
-        }
-
-        $scope.getStudent = function () {
+        $scope.getStudents = function () {
+            $scope.isLoading=true;
+            $scope.isProcessing=true;
             dataService.getData()
             .then(function (students) {
                 $scope.students = students.data;
+                $scope.isFormDisplay=false;
+                $scope.isProcessing=false;
+                $scope.isLoading=false;
+            })
+            .catch(function (students) {
+                $scope.displayError(students);
             });
         }
 
-        $scope.getStudent();
+        $scope.displayForm = function (){
+            $scope.isSubmit = true;
+            $scope.isProcessing=false;
+          //  $scope.submitBtn = 'Submit';
+            $scope.isFormDisplay=true;
+        }
+
+        $scope.createStudent = function (student) {
+         //   $scope.submitBtn = '<i class="fa fa-spinner fa-spin"></i>Submitting';
+            $scope.isProcessing=true;
+
+            var validationStatus = $scope.isValidData(student);
+    
+            if (validationStatus == 1) {
+                dataService.postData(student)
+                .then(function () {
+                    $scope.student = {};
+                    $scope.getStudents(); 
+                })
+                .catch(function (student) {
+                    $scope.displayError(student);
+                });
+            }
+
+            if (validationStatus == 0) {
+                $scope.isProcessing=false;
+                console.log('error on submit')
+               // $('#error').html('<p>Invalid Data</p>');
+    
+            }
+        }
+
+        $scope.getStudent = function (rollNo) {
+            $scope.isProcessing=true;
+            dataService.getSingleData(rollNo)
+            .then(function (student) {
+                $scope.isSubmit = false;
+              //  $scope.updateBtn = 'Update';
+                $scope.isProcessing=false;
+                $scope.student = student.data;
+                $scope.student.date = new Date(student.data.date);
+                $scope.isFormDisplay=true;
+
+            })
+            .catch(function (student) {
+                $scope.displayError(student);
+            });
+
+        }
+
+        $scope.updateStudent = function (student) {
+          //  $scope.updateBtn = '<i class="fa fa-spinner fa-spin"></i>Updating';
+            $scope.isProcessing=true;
+            var validationStatus = $scope.isValidData(student);
+    
+            if (validationStatus == 1) {
+                dataService.updateData(student)
+                .then(function () {
+                    $scope.student = {};
+                    $scope.getStudents(); 
+                })
+                .catch(function (student) {
+                    $scope.displayError(student);
+                });
+            }
+            if (validationStatus == 0) {
+                $scope.isProcessing=false;
+                console.log('error on update')
+               // $('#error').html('<p>Invalid Data</p>');
+    
+            }
+        }
+
+        $scope.deleteStudent = function (rollNo) {
+            dataService.deleteData(rollNo)
+            .then(function () {
+                $scope.getStudents(); 
+            })
+            .catch(function (student) {
+                $scope.displayError(student);
+            });
+        }
+
+        $scope.getStudents();
     });
 
 angular.module('studentAPI')
@@ -49,8 +192,6 @@ angular.module('studentAPI')
         obj.getSingleData = function (rollNo) {
             return $http.get(url+'/'+rollNo);
         }
-
-
 
         obj.postData = function (student) {
             return $http.post(url, student);

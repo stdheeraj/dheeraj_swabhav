@@ -26,7 +26,7 @@
 		"options": {
 			"a": "To Style HTML Pages",
 			"b": "To add interactivity to HTML Pages",
-			"c": "To Perform Server Side Scripting Opertion",
+			"c": "To Perform Server Side Scripting Operation",
 			"d": "To Execute Query Related to DB on Server"
 		},
 		"answer": "b"
@@ -52,5 +52,60 @@
 			"d": "None of above"
 		},
 		"answer": "b"
+	},
+	{
+		"id": "6",
+		"question": "JavaScript Code can be called by using",
+		"options": {
+			"a": "RMI",
+			"b": "Triggering Event",
+			"c": "Preprocessor",
+			"d": "Function / Method"
+		},
+		"answer": "d"
+	},
+	{
+		"id": "7",
+		"question": "The type of a variable that is volatile is",
+		"options": {
+			"a": "Volatile variable",
+			"b": "Mutable variable",
+			"c": "Immutable variable",
+			"d": "Dynamic variable"
+		},
+		"answer": "b"
+	},
+	{
+		"id": "8",
+		"question": "A hexadecimal literal begins with",
+		"options": {
+			"a": "00",
+			"b": "0x",
+			"c": "0X",
+			"d": "Both 0x and 0X"
+		},
+		"answer": "d"
+	},
+	{
+		"id": "9",
+		"question": "When there is an indefinite or an infinity value during an arithmetic value computation, javascript",
+		"options": {
+			"a": "Prints an exception error",
+			"b": "Prints an overflow error",
+			"c": "Displays Infinity",
+			"d": "Prints the value as such"
+		},
+		"answer": "c"
+	},
+	{
+		"id": "10",
+		"question": "Which of the following is not considered as an error in JavaScript?",
+		"options": {
+			"a": "Syntax error",
+			"b": "Missing of semicolons",
+			"c": "Division by zero",
+			"d": "All of the mentioned"
+		},
+		"answer": "c"
 	}
 ]

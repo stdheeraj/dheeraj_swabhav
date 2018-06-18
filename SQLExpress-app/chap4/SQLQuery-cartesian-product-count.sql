@@ -1,0 +1,2 @@
+SELECT COUNT(*) AS [COUNT OF CARTESIAN]
+FROM Employee, Name
