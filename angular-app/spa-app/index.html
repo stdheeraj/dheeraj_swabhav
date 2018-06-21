@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="spa-app">
+
+<head>
+    <title>SPA App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-route.js"></script>
+    <script src="controller.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body>
+        <h1 align="center">INDEX Page</h1>
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#home">Home</a>
+                    </li>
+                    <li>
+                        <a href="#about">About</a>
+                    </li>
+                    <li>
+                        <a href="#career">Career</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <br>
+        <br>
+
+        <div align="center" ng-view></div>
+</body>
+
+</html>

@@ -4,38 +4,16 @@
     <title>Students API</title>
     <script src="angular-1.6.10/angular.js"></script>
     <link href="bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="student-api.js"></script>
-    <style>
-        .form-element {
-            margin-bottom: 5px;
-        }
-
-        .highlight-error {
-            border: 1px solid red;
-        }
-
-        .buttonload {
-                background-color: #4CAF50; /* Green background */
-                border: none; /* Remove borders */
-                color: white; /* White text */
-                padding: 12px 24px; /* Some padding */
-                font-size: 16px; /* Set a font-size */
-            }
-            
-            /* Add a right margin to each icon */
-            .fa {
-                margin-left: -12px;
-                margin-right: 8px;
-            }
-    </style>
-
 </head>
 
 <body ng-app="studentAPI">
-    <center ng-controller="studentAPICtrl">
+    <div class="container" align="center" ng-controller="studentAPICtrl">
 
         <div ng-if="isLoading">
-            <img src="resource/SkinnySeveralAsianlion.gif" width="20" height="20">Loading...
+            <img ng-src="{{spinner}}" width="20" height="20">Loading...
         </div>
         <br>
 
@@ -45,13 +23,16 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             <span><strong>Add New Student</strong></span>
         </button>
-        <br>
-        <br>
-        <div ng-if="isError">{{error}}</div>
+        <div class="alert alert-danger" ng-if="isError">
+            <br>
+            <br>
+            <strong>Error!</strong> {{error}}
+        </div>
 
-        <div class="table-responsive" ng-if="!isFormDisplay && !isError">
-            <table border="5" class="table table-hover">
-                <thead>
+        <div ng-if="!isFormDisplay && !isError">
+            <br>
+            <table border="5" class="table table-hover table-responsive-md">
+                <thead class="mdb-color lighten-4">
                     <tr class="active">
                         <th>Roll No</th>
                         <th>Name</th>
@@ -70,21 +51,11 @@
                     <td>{{student.date | date}}</td>
                     <td>{{student.isMale ? 'Male' : 'Female'}}</td>
                     <td>
-                        <button ng-click="deleteStudent(student.rollNo)" class="btn btn-primary">
-                            <span ng-if="isProcessing">
-                                <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
-                            </span>
-                            <span ng-if="!isProcessing">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </span>
+                        <button ng-click="deleteStudent(student.rollNo)" ng-disabled="isProcessing" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
-                        <button ng-click="getStudent(student.rollNo)" class="btn btn-primary">
-                            <span ng-if="isProcessing">
-                                <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
-                            </span>
-                            <span ng-if="!isProcessing">
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            </span>
+                        <button ng-click="getStudent(student.rollNo)" ng-disabled="isProcessing" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </button>
                     </td>
                 </tr>
@@ -94,49 +65,79 @@
         <fieldset ng-if="isFormDisplay && !isError">
             <legend>Fill the Details</legend>
 
-            Roll No: <input type="number" name="rollNo" class="form-element" ng-model="student.rollNo">
-            <span ng-if="isRollNoError">Invalid Roll No</span><br><br>
-            Name: <input type="text" name="name" class="form-element" ng-model="student.name">
-            <span ng-if="isNameError">Invalid Name</span><br><br>
-            Age: <input type="number" name="age" class="form-element" ng-model="student.age">
-            <span ng-if="isAgeError">Invalid Age</span><br><br>
-            EMail: <input type="email" name="email" class="form-element" ng-model="student.email">
-            <span ng-if="isEMailError">Invalid EMail</span><br><br>
-            Date: <input type="date" name="date" class="form-element" ng-model="student.date">
-            <span ng-if="isDateError">Invalid Date</span><br><br>
-            Gender: 
-            <input type="radio" name="gender" class="form-element" ng-model="student.isMale" ng-value="true">Male
-            <input type="radio" name="gender" class="form-element" ng-model="student.isMale" ng-value="false">Female
-            <span ng-if="isGenderError">Invalid Gender</span>
-            <br>
-            <button ng-if="isSubmit" ng-click="createStudent(student)" class="btn btn-success">
-                <span ng-if="isProcessing">
-                    <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
-                    Submitting
-                </span>
-                <span ng-if="!isProcessing">Submit</span>
-            </button>
-            <button ng-if="isSubmit" ng-click="student={}" class="btn btn-success">
-                    <span ng-if="isProcessing">
-                        <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
-                        Clearing
+            <form align="left">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="rollNo">Roll No:</label>
+                  <div class="col-sm-10">
+                    <input type="number" name="rollNo" class="form-control" id="rollNo" placeholder="Enter Roll No" ng-disabled="!isSubmit" ng-model="student.rollNo">
+                    <span ng-if="isRollNoError">Invalid Roll No</span><br>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name" ng-model="student.name">
+                        <span ng-if="isNameError">Invalid Name</span><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="age">Age:</label>
+                    <div class="col-sm-10">
+                        <input type="number" name="age" class="form-control" id="age" placeholder="Enter your age" ng-model="student.age">
+                        <span ng-if="isAgeError">Invalid Age</span><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="email">EMail:</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter EMail" ng-model="student.email">
+                        <span ng-if="isEMailError">Invalid EMail</span><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="date">Date Of Birth:</label>
+                    <div class="col-sm-10">
+                        <input type="date" name="date" class="form-control" id="date" ng-model="student.date">
+                        <span ng-if="isDateError">Invalid Date</span><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="gender">Gender:</label>
+                    <span align="left">
+                        <label class="radio-inline">
+                            <input type="radio" name="gender"  id="gender" ng-model="student.isMale" ng-value="true">Male
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="gender"  id="gender" ng-model="student.isMale" ng-value="false">Female
+                        </label>
+                        <span ng-if="isGenderError">Invalid Gender</span>
                     </span>
-                    <span ng-if="!isProcessing">Clear</span>
-            </button>
-            <button ng-if="!isSubmit" ng-click="updateStudent(student)" class="btn btn-success">
-                <span ng-if="isProcessing">
-                    <img src="resource/SkinnySeveralAsianlion.gif" width="15" height="15">
-                    Updating
-                </span>
-                <span ng-if="!isProcessing">Update</span>
-            </button>
-
+                </div>
+                <div class="form-group" align="center"> 
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button ng-if="isSubmit" ng-click="createStudent(student)" ng-disabled="isProcessing" class="btn btn-success">
+                            <span ng-if="isProcessing">
+                                <img ng-src="{{spinner}}" width="15" height="15">
+                                Submitting
+                            </span>
+                            <span ng-if="!isProcessing">Submit</span>
+                        </button>
+            
+                        <button ng-if="!isSubmit" ng-click="updateStudent(student)" ng-disabled="isProcessing" class="btn btn-success">
+                            <span ng-if="isProcessing">
+                                <img ng-src="{{spinner}}" width="15" height="15">
+                                Updating
+                            </span>
+                            <span ng-if="!isProcessing">Update</span>
+                        </button>
+                    </div>
+                </div>
+              </form>
         </fieldset>
 
         </div>
 
-
-    </center>
+    </div>
 
 </body>
 

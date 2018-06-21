@@ -1,6 +1,7 @@
 angular.module('studentAPI', [])
     .controller('studentAPICtrl', function ($scope, dataService) {
 
+        $scope.spinner = 'resource/SkinnySeveralAsianlion.gif';
         $scope.isFormDisplay=false;
         $scope.isSubmit = true;
         $scope.isError=false;
@@ -16,6 +17,13 @@ angular.module('studentAPI', [])
         $scope.isValidData = function(student){
 
             var errorStatus = 1;
+
+            $scope.isRollNoError=false;
+            $scope.isNameError=false;
+            $scope.isAgeError=false;
+            $scope.isEMailError=false;
+            $scope.isDateError=false;
+            $scope.isGenderError=false;
 
             if (student == undefined) {
                 $scope.isRollNoError=true;
@@ -129,12 +137,10 @@ angular.module('studentAPI', [])
             dataService.getSingleData(rollNo)
             .then(function (student) {
                 $scope.isSubmit = false;
-              //  $scope.updateBtn = 'Update';
                 $scope.isProcessing=false;
                 $scope.student = student.data;
                 $scope.student.date = new Date(student.data.date);
                 $scope.isFormDisplay=true;
-
             })
             .catch(function (student) {
                 $scope.displayError(student);
@@ -166,13 +172,16 @@ angular.module('studentAPI', [])
         }
 
         $scope.deleteStudent = function (rollNo) {
-            dataService.deleteData(rollNo)
-            .then(function () {
-                $scope.getStudents(); 
-            })
-            .catch(function (student) {
-                $scope.displayError(student);
-            });
+            var isDelete= confirm("Are really want to delete student data having Roll No "+rollNo+"?");
+            if(isDelete){
+                dataService.deleteData(rollNo)
+                .then(function () {
+                    $scope.getStudents(); 
+                })
+                .catch(function (student) {
+                    $scope.displayError(student);
+                });
+            }
         }
 
         $scope.getStudents();

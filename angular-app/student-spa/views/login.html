@@ -1,0 +1,33 @@
+<fieldset>
+    <legend>Login</legend>
+
+    <form align="left" class="form-group" name='loginForm'>
+        <div class="input-group">
+            <span class="input-group-addon" for="name">User Name:</span>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Enter User Name" ng-model="user.name" required>
+        </div>
+        <div ng-if="loginForm.name.$touched && loginForm.name.$invalid">Invalid User Name</div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon" for="password">Password:</span>
+            <input type="password" name="password" minlength="3" maxlength="20" class="form-control" id="password" placeholder="Enter Password" ng-model="user.password" required>
+        </div>
+        <div ng-if="loginForm.password.$touched && loginForm.password.$invalid">Invalid Password</div>
+        <br>
+        <div class="form-group" align="right">
+            <input type="checkbox" name="remember" id="gender" ng-model="user.remember" checked> 
+            <label class="control-label col-sm-2" for="gender">Remember me</label>
+        </div>
+        <br>
+        <div class="form-group" align="center">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button ng-click="login(user)" ng-disabled="isProcessing || loginForm.$untouched || loginForm.$invalid" class="btn btn-success">
+                    <span ng-if="isProcessing">
+                        <img ng-src="{{spinner}}" width="15" height="15">Authenticating...
+                    </span>
+                    <span ng-if="!isProcessing">Login</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</fieldset>

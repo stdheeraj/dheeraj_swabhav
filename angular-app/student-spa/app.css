@@ -1,0 +1,21 @@
+body {
+    font-family: Verdana,sans-serif;
+    font-size: 0.9em;
+}
+header, footer {
+	position:relative;
+    padding: 1px;
+    color: black;
+    background-color: rgba(139, 184, 181, 0.507);
+    text-align: center;
+}
+section {
+    margin: 1px;
+    padding: 2px;
+    color: black;
+    background-color: rgb(124, 131, 170);
+}
+
+button {
+    margin-block-start: 20px;
+}

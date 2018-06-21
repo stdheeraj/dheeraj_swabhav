@@ -1,7 +1,7 @@
 /// <reference path="angular-1.6.10/angular.js" />
 
 angular.module("clickEvent", [])
-                        .controller("ClickEventController", function($scope){  
+                        .controller("ClickEventController",['$scope', function($scope){  
 
                             $scope.load = function() {
                                 $scope.developer = {
@@ -10,4 +10,7 @@ angular.module("clickEvent", [])
                                 };
                             };
 
-                        });
+                        }]);
+
+
+//angular.module("clickEvent",[]).controller("ClickEventController",["$scope",function(e){e.load=function(){e.developer={name:"Dheeraj",profilePicture:"dp.png"}}}]);

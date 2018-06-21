@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html ng-app="student-spa-app">
+
+<head>
+    <title>Student API App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-route.js"></script>
+    <script src="controller.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Student API (SPA)</h1>
+    </header>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <button ng-click="goToHome()" ng-disabled="isProcessing" class="btn btn-secondary navbar-btn">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                        <span>
+                            <strong>Home</strong>
+                        </span>
+                    </button>
+                </li>
+                <li></li>
+                <li>
+                    <button ng-click="displayForm()" ng-if="!isError" ng-disabled="isProcessing" class="btn btn-secondary navbar-btn">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        <span>
+                            <strong>Add New Student</strong>
+                        </span>
+                    </button>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <strong class="navbar-brand">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        {{user || 'Guest'}}
+                    </strong>
+                </li>
+                <li>
+                    <button ng-if="!user" ng-click="logon()" ng-disabled="isProcessing" class="btn btn-secondary navbar-btn">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                        <span>
+                            <strong>Logon</strong>
+                        </span>
+                    </button>
+                    <button ng-if="user" ng-click="logout()" ng-disabled="isProcessing" class="btn btn-secondary navbar-btn">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                        <span>
+                            <strong>Logout</strong>
+                        </span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-2 col-sm-2"></div>
+                <div class="col-lg-6 col-md-8 col-sm-8">
+                    <div ng-view></div>
+                </div>
+                <div class="col-lg-3 col-md-2 col-sm-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Developed by: Dheeraj</p>
+        <p>Contact information:
+            <a href="mailto:dheeraj.chaurasia@swabhav.techlabs.com">
+                dheeraj.chaurasia@swabhav.techlabs.com
+            </a>
+        </p>
+    </footer>
+
+</body>
+
+</html>
