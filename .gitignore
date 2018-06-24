@@ -90,7 +90,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # Dependancies
-/node_modules
+/node_modules/*
 
 
 # End of https://www.gitignore.io/api/eclipse,windows,visualstudiocode
