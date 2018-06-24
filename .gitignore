@@ -89,5 +89,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Dependancies
+/node_modules
+
 
 # End of https://www.gitignore.io/api/eclipse,windows,visualstudiocode
