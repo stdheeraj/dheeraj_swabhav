@@ -3,40 +3,35 @@ const ContactService = require('./contact-service');
 
 let contactService = new ContactService();
 
-do {
-    console.log('1 : Search');
-    console.log('2 : Add')
-    console.log('3 : Remove')
-    console.log('4 : Update')
-    let choice = readlineSync.question('Enter your choice : ');
-    switch (parseInt(choice)) {
-        case 1: console.log('hello1');
-                break;
-        case 2: contactService.add();
-                break;
-        case 3: console.log('hello3');
-                break;
-        case 4: console.log('hello4');
-                break;
-        default: console.log('Invalid Choice')
-    }
+while (true) {
 
-    let c = readlineSync.question('Do you want to continue? (y/n) ');
-    if(c === "n")
-        break;
-} while (true);
+        console.log('\n1 : Search');
+        console.log('2 : Add')
+        console.log('3 : Update')
+        console.log('4 : Remove')
+        console.log('5 : Display All Contacts')
+        console.log('6 : Exit')
 
+        let operation = readlineSync.keyIn('Which operation? ', { limit: '$<1-6>' });
 
-/*
-let name = readlineSync.question('Enter your name : ');
-let contact = readlineSync.question('Enter your contact number : ');
-
-
-console.log('Hi ' + userName + '!');
- 
-// Handle the secret text (e.g. password).
-var favFood = readlineSync.question('What is your favorite food? ', {
-  hideEchoBack: true // The typed text on screen is hidden by `*` (default).
-});
-console.log('Oh, ' + userName + ' loves ' + favFood + '!');
-*/
+        try {
+                switch (parseInt(operation)) {
+                        case 1: contactService.search();
+                                break;
+                        case 2: contactService.add();
+                                break;
+                        case 3: contactService.update();
+                                break;
+                        case 4: contactService.remove();
+                                break;
+                        case 5: contactService.display();
+                                break;
+                        case 6: process.exit();
+                                break;
+                        default: console.log('invalid opeartion..');
+                }
+                
+        } catch (e) {
+                console.error(e.message)
+        }
+}

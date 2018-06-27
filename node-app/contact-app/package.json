@@ -4,7 +4,8 @@
   "description": "storing contact information",
   "main": "contact-console.js",
   "dependencies": {
-    "readline-sync": "^1.4.9"
+    "readline-sync": "^1.4.9",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {},
   "scripts": {

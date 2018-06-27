@@ -1,0 +1,15 @@
+{
+  "name": "middleware-app",
+  "version": "1.0.0",
+  "description": "Middleware used for cross cutting concerns.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "author": "dheeraj",
+  "license": "ISC"
+}

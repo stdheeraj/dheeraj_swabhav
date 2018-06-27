@@ -49,7 +49,7 @@ fs.open('file.txt', 'r+', function (err, fd) {
   }
   console.log("File opened successfully!");
 
-  fs.truncate(fd, 14, function(err){
+  fs.ftruncate(fd, 14, function(err){
     if (err){
        console.log(err);
     }
