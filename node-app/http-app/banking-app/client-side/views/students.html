@@ -1,0 +1,83 @@
+<div ng-if="isLoading" align='center'>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <img ng-src="{{spinner}}" width="100" height="100">
+    <br>
+    <strong>Loading...</strong>
+</div>
+<br>
+
+<div ng-if="!isLoading">
+<!--
+    <div>
+        <div  ng-if="!isError && user">
+            <div style="display:inline-block">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <strong>{{user}}</strong>
+            </div>
+            <div style="display:inline-block" align="right">
+                <button ng-click="logout()" ng-disabled="isProcessing" class="btn btn-secondary">
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                    <span>
+                        <strong>Logout</strong>
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div align="left">
+            <button ng-click="displayForm()" ng-if="!isError" ng-disabled="isProcessing" class="btn btn-secondary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span>
+                    <strong>Add New Student</strong>
+                </span>
+            </button>
+        </div>
+    </div>
+-->
+
+    <div class="alert alert-danger" ng-if="isError">
+        <br>
+        <br>
+        <strong>Error!</strong> {{error}}
+    </div>
+    <div ng-if="!isError">
+        <table border="5" class="table table-hover ">
+            <thead class="mdb-color lighten-4">
+                <tr class="active">
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>EMail</th>
+                    <th>Date</th>
+                    <th>Gender</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="student in students" class="success active">
+                <td>{{student.rollNo}}</td>
+                <td>{{student.name}}</td>
+                <td>{{student.age}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.date | date}}</td>
+                <td>{{student.isMale | gender}}</td>
+                <td>
+                    <button ng-click="deleteStudent(student.rollNo)" ng-disabled="isProcessing" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    <button ng-click="editStudent(student.rollNo)" ng-disabled="isProcessing" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

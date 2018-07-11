@@ -1,19 +1,17 @@
-USE aurionpro;
+--*GET CURRENT DATE
 GO
-
-CREATE FUNCTION getDate(@Date INT)
-
-RETURNS INT
-
+CREATE FUNCTION getCurrentDate()
+RETURNS VARCHAR(10)
 AS
-
-RETURN WITH 
-	--	SELECT convert(varchar(10), getdate(), 110)
-		
-
+BEGIN
+RETURN (SELECT convert(varchar(10), getdate(), 112))
+END	
 GO
---EXECUTE getAvgSal();
 
-select getdate(), cast(
-convert(varchar(10), getdate(), 110) as datetime
-)
+--* DISPLAY CURRENT DATE
+SELECT DBO.getCurrentDate() AS [CURRENT DATE]
+
+
+--select cast(convert(varchar(10), getdate(), 112) as VARCHAR(10))
+--* DROP FUNCTION
+DROP FUNCTION getCurrentDate;

@@ -1,0 +1,1 @@
+INSERT INTO bank_master VALUES ("DHEERAJ", 5000);

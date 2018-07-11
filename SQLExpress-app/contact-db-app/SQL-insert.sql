@@ -1,0 +1,1 @@
+insert into contacts values (111, "dheeraj", 1234567890, "hfhjg@bjhb.com")

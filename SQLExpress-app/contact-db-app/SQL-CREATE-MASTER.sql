@@ -1,0 +1,5 @@
+CREATE TABLE BANK_MASTER(
+        NAME VARCHAR(30), 
+        BALANCE FLOAT,
+        FOREIGN KEY (NAME) REFERENCES bank_transaction(NAME)
+        )
