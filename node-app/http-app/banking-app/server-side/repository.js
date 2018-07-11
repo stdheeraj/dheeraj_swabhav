@@ -1,8 +1,8 @@
 const mysql = require('mysql');
 const async = require('async');
+//const uuidv1 = require('uuid/v1');
 
 const fireQuery = (query, value) => {
-    //console.log("inside query");
     const connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
@@ -16,9 +16,8 @@ const fireQuery = (query, value) => {
             (callback) => connection.query(query, value, (err, status) => callback(err, status))
         ],
             (error, results) => {
-                //console.log(error);
                 if (error)
-                    reject(new Error(error.sqlMessage));
+                    reject(error.sqlMessage);
                 else
                     resolve(results);
 
@@ -46,8 +45,6 @@ class Connection {
     }
 
     doTransaction(name, transactionObj) {
-
-        //console.log("inside transaction");
         const connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
@@ -72,7 +69,6 @@ class Connection {
 
                 },
                 (status, callback) => {
-                    //console.log(status);
                     let transactionData = [name, transactionObj.amount, transactionObj.type, new Date()];
                     connection.query('INSERT INTO bank_transaction (NAME, AMOUNT, TYPE, DATE) VALUES (?)', [transactionData],
                         (err, status) => callback(err, status));
@@ -81,7 +77,7 @@ class Connection {
             ],
                 (err) => {
                     if (err)
-                        connection.rollback(() => reject(err));
+                        connection.rollback(() => reject(err.sqlMessage));
                     else
                         resolve("transaction completed");
                     connection.end();
@@ -91,23 +87,5 @@ class Connection {
     }
 
 }
-
-// const con = new Connection();
-// let obj = {
-//     name : 'DHEERAJ',
-//     amount : 100,
-//     type : 'D'
-// }
-
-// con.doTransaction(obj)
-// .then((res)=>console.log(res))
-// .catch((err)=> console.log(err));
-
-// con.getCustomerPassword('DHEERA')
-// .then((res)=>{
-//     if(res.length!=0)
-//     console.log(res)
-// })
-// .catch((err)=> console.log(err));
 
 module.exports = Connection;
