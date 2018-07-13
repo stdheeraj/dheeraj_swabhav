@@ -92,5 +92,8 @@ $RECYCLE.BIN/
 # Dependancies
 node_modules/
 
+# Android
+.idea/
+
 
 # End of https://www.gitignore.io/api/eclipse,windows,visualstudiocode
