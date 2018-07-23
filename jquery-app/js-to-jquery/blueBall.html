@@ -1,120 +1,122 @@
 <html>
-    <head>
-        <style>
-            .btn {
-                height: 40px;
-                width: 40px;
-                border-radius: 50%;
-                border: 1px solid gray;
-            }
 
-            #start{
-                border-radius: 10pt;
-                border: 1px solid gray;
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                padding: 5px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-            }
-
-            #attemp{
-                float: right;
-            }
-
-        </style>
-    </head>
-<body>
-    <button id="start" onclick="createButton()">Start</button>
-    <label id="attemp"></label><br><br>
-
-    <div id="buttons" align="center"></div><br><br>
-    <div id="winner" align="center"></div>
-
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        $('document').ready(function () {
 
-        "use strict";
-        /*
-        (function(){
-        
-        document.getElementById("start").addEventListener("click", createButton);
-        var btnclass = document.getElementsByClassName("btn");
-        var temp = btnclass[1];
-        console.log(temp);
-        for (var i = 0; i < btnclass.length; i++) {
-            btnclass[i].addEventListener("click", checkButtonValue);
-        }
-        */
+            "use strict";
 
-        var attemp = 3;
-        var randomButton = Math.floor(Math.random()*50);
-        var attempTag=document.getElementById("attemp");
-        var buttons=document.getElementById("buttons");
-        var winner=document.getElementById("winner");
+            var attemp = 3;
+            var randomButton = Math.floor(Math.random() * 50);
+            var attempTag = $('#attemp');
+            var buttons = $('#buttons');
+            var winner = $('#winner');
 
-        function createButton() {
-
-            attempTag.innerHTML = "Attemp: "+ attemp;
-            buttons.innerHTML = "";
-            winner.innerHTML = "";
-           
-            for(var i=1; i<=50; i++){
-                
-                buttons.innerHTML += '<button class="btn" value='+i+' onclick=checkButtonValue(this)>'+i+'</button>';
-                
-                if(i%10==0)
-                    buttons.innerHTML += '<br>';
-            
+            $('#start').click(createButton);
+            $(document).on('click', '.btn', function () {
+                $('.btn').each(checkButtonValue);
             }
+            );
 
-        }
+            function createButton() {
 
-        function checkButtonValue(button){
+                attempTag.html("Attemp: " + attemp);
+                buttons.html("");
+                winner.html("");
 
-           // console.log(button.target);
+                for (var i = 1; i <= 50; i++) {
 
-            if(button.value==randomButton){
-                button.setAttribute("style","background-color:blue");
-                winner.innerHTML = "You Guessed correctly.<br>Congratulations! You are Winner.";
-                setTimeout(clear,3000);
-            } 
-            else if(button.value < randomButton){
-                button.setAttribute("style","background-color:red");
-                attemp--;
-                attempTag.innerHTML = "Attemp: "+ attemp;
-                if(attemp == 0){
-                    setTimeout(clear,2000);
-                    winner.innerHTML = "Your attemp is over.";
-                }
+                    buttons.html(buttons.html() + '<button class="btn" value=' + i + '>' + i + '</button>');
                     
-            } 
-            else{
-                button.setAttribute("style","background-color:green");
-                attemp--;
-                attempTag.innerHTML = "Attemp: "+ attemp;
-                if(attemp == 0){
-                    setTimeout(clear,2000);
-                    winner.innerHTML = "Your attemp is over.";
+                    if (i % 10 == 0)
+                        buttons.html(buttons.html() + '<br>');
+
                 }
+                $('.btn').click(checkButtonValue);
+
             }
 
-        }
+            function checkButtonValue(button) {
 
-        function clear(){
-            attemp = 3;
-            randomButton = Math.floor(Math.random()*50);
-            attempTag.innerHTML = "";
-            buttons.innerHTML = "";
-            winner.innerHTML = "";
-        }
+                console.log("button clicked"+$(this).attr('value') == randomButton);
 
-       // }())
+                if ($(this).attr('value') == randomButton) {
+                    $(this).css("background-color", "blue");
+                    winner.html("You Guessed correctly.<br>Congratulations! You are Winner.");
+                    setTimeout(clear, 3000);
+                }
+                else if ($(this).attr('value') < randomButton) {
+                    $(this).css("background-color", "red");
+                    attemp--;
+                    attempTag.html("Attemp: " + attemp);
+                    if (attemp == 0) {
+                        setTimeout(clear, 2000);
+                        winner.html("Your attemp is over.");
+                    }
 
+                }
+                else {
+                    $(this).css("background-color", "green");
+                    attemp--;
+                    attempTag.html("Attemp: " + attemp);
+                    if (attemp == 0) {
+                        setTimeout(clear, 2000);
+                        winner.html("Your attemp is over.");
+                    }
+                }
+
+            }
+
+            function clear() {
+                attemp = 3;
+                randomButton = Math.floor(Math.random() * 50);
+                attempTag.html("");
+                buttons.html("");
+                winner.html("");
+            }
+
+        });
     </script>
+    <style>
+        .btn {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            border: 1px solid gray;
+        }
+
+        #start {
+            border-radius: 10pt;
+            border: 1px solid gray;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 5px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        #attemp {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="start">Start</button>
+    <label id="attemp"></label>
+    <br>
+    <br>
+
+    <div id="buttons" align="center"></div>
+    <br>
+    <br>
+    <div id="winner" align="center"></div>
 </body>
+
 </html>

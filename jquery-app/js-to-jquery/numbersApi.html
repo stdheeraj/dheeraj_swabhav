@@ -1,36 +1,46 @@
 <html>
-<body>
-    <input type="number" id="numberInput"><br>
-    <br>
-    <button id="helloButton">Hello</button><br>
-    <ul id="response"></ul>
 
-
-    <script>
-
-        var numberInput=document.getElementById("numberInput");
-        var helloButton=document.getElementById("helloButton");
-        var response=document.getElementById("response");
-
-        numberInput.addEventListener('keypress', takeResponse);
-        helloButton.addEventListener('click', helloMessage);
+<head>
     
-        function takeResponse(){
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("response").innerHTML =  this.responseText;
-                }
-            };
-            xhttp.open("GET", "http://numbersapi.com/"+numberInput.value, true);
-            xhttp.send();
-        }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $('document').ready(function () {
+            var numberInput = $('#numberInput');
+            var helloButton = $('#helloButton');
+            var response = $('#response');
 
-        function helloMessage(){
-            alert("Hello World");
-        }
+            numberInput.keypress(takeResponse);
+            helloButton.click(helloMessage);
 
+            function takeResponse() {
+                console.log(numberInput.val());
+                let url = 'http://numbersapi.com/'+$('#numberInput').val();
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (data) {
+                        response.html(data);
+                    },
+                    error: function (error) {
+                        response.html(error);
+                    }
+                });
+            }
 
+            function helloMessage() {
+                alert("Hello World");
+            }
+        });
     </script>
+</head>
+
+<body>
+    <input type="number" id="numberInput">
+    <br>
+    <br>
+    <button id="helloButton">Hello</button>
+    <br>
+    <ul id="response"></ul>
 </body>
+
 </html>

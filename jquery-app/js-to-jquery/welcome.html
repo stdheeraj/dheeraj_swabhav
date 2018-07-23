@@ -3,31 +3,26 @@
 
 <head>
     <title>Welcome Page</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript"> 
-        function wishMessage(){
-
-            var name = document.getElementById("name");
-            var wish = document.getElementById("wish");
-
-            wish.innerHTML +="Welcome " + name.value + " to Swabhav Techlabs.</br>";
-        }
+        $("document").ready(function () {
+            $('#wishBtn').click(wishMessage);
+            function wishMessage() {
+                var name = $('#name');
+                var wish = $('#wish');
+                wish.html(wish.html() + "Welcome " + name.val() + " to Swabhav Techlabs.</br>");
+            }
+        });
     </script>
-
 </head>
 
 <body>
     <center>
-
-    <label>Name: </label>
-    <input type="text" id="name">
-
-    <button value="Wish" onclick="wishMessage()">Wish</button>
-    </br>
-
-    <label id="wish"></label>
-
+        <label>Name: </label>
+        <input type="text" id="name">
+        <button value="Wish" id="wishBtn">Wish</button></br>
+        <label id="wish"></label>
     </center>
-
 </body>
+
 </html>

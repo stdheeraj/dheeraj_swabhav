@@ -1,32 +1,33 @@
 <html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $('document').ready(function(){
+                "use strict"
+                var spinner = $('#spinner');
+                var loaded = $('#loaded');
+
+                $('#fetchData').click(loading);
+                
+                spinner.hide();
+                loaded.hide();
+                
+                function loading(){
+                    spinner.show();
+                    loaded.hide();
+                    setTimeout(function(){
+                        spinner.hide();
+                        loaded.show();
+                    },3000);
+                }
+            });   
+        </script>
+    </head>
 <body>
     <center>
-    
-        <button onclick="loading()">Fetch Data</button></br></br>
-    
+        <button id="fetchData">Fetch Data</button></br></br>
         <img src="spinner.gif" width="100" height="100" id="spinner">
-
         <p id="loaded">Data has been loaded into system.</p>
-
-    </center>
-
-    <script>
-        "use strict"
-        var spinner = document.getElementById("spinner");
-        var loaded = document.getElementById("loaded");
-        
-        spinner.style.display = "none";
-        loaded.style.display = "none";
-
-        function loading(){
-            spinner.style.display = "block";
-            loaded.style.display = "none";
-            setTimeout(function(){
-                spinner.style.display = "none";
-                loaded.style.display = "block";
-            },3000);
-        }
-    </script>
-        
+    </center>    
 </body>
 </html>

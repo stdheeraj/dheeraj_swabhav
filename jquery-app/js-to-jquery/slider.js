@@ -1,16 +1,18 @@
-(function(){
+$('document').ready(function () {
 
-    document.getElementById("slider").addEventListener("input", getSlider);
+    $('#slider').slider({
+        range: "max",
+        min: 0,
+        max: 100,
+        value: 0,
+        slide: getSlider
+    });
 
-    function getSlider() {
-
-    var sliderValue = document.getElementById("slider").value;
-
-    document.getElementById("buttons").innerHTML = "";
-
-    for(i=1; i<=sliderValue; i++){
-       document.getElementById("buttons").innerHTML += '<button id=' + i +' onclick="console.clear();console.log(this.id)">'+i+'</button>';
+    function getSlider(event, ui) {
+        var sliderValue = ui.value;
+        $('#buttons').html('');
+        for (i = 1; i <= sliderValue; i++)
+            $('#buttons').html($('#buttons').html() + '<button id=' + i + ' onclick="console.clear();console.log(this.id)">' + i + '</button>');
     }
-    }
 
-}())
+});
