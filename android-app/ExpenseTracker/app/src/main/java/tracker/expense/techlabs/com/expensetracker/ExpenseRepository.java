@@ -11,7 +11,6 @@ import org.json.JSONObject;
 
 public class ExpenseRepository {
 
-    //private static SharedPreferences sharedPreferences;
     private static String expensePreferenceKey = "Expenses";
 
     private ExpenseRepository(){
@@ -37,18 +36,34 @@ public class ExpenseRepository {
         return new JSONArray();
     }
 
+    public static JSONObject getExpense(Context context, int id){
+        try {
+            return getExpenses(context).getJSONObject(id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void addExpense(Context context, JSONObject expense){
         setSharedPreferences(context, getExpenses(context).put(expense));
-        //getExpenses(context).put(expense);
+    }
+
+    public static void setExpense(Context context, int id, JSONObject expense){
+        try {
+            setSharedPreferences(context, getExpenses(context).put(id,expense));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void removeExpense(Context context, int position){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            setSharedPreferences(context, (JSONArray) getExpenses(context).remove(position));
-    }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            JSONArray expenses = getExpenses(context);
+            expenses.remove(position);
+            setSharedPreferences(context, expenses);
+        }
 
-    public static int countExpense(Context context){
-        return getExpenses(context).length();
     }
 
 }

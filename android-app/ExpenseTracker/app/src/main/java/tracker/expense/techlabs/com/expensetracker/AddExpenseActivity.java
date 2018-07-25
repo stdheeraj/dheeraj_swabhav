@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.util.Log;
 import android.view.View;
@@ -13,11 +12,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,8 +31,9 @@ public class AddExpenseActivity extends Activity {
     private TextInputEditText description;
     private Spinner category;
     private Button addBtn;
+    private Button backBtn;
     private DatePickerDialog datePickerDialog;
-    private Calendar c;
+    private Calendar calendar;
     private List<String> categoryList;
 
     @Override
@@ -44,10 +46,12 @@ public class AddExpenseActivity extends Activity {
         description = (TextInputEditText) findViewById(R.id.description);
         category = (Spinner) findViewById(R.id.category);
         addBtn = (Button) findViewById(R.id.addBtn);
+        backBtn = (Button) findViewById(R.id.backBtn);
 
         dateClickListener();
         addItemOnCategory();
         addBtnListener();
+        backBtnListener();
 
     }
 
@@ -56,45 +60,66 @@ public class AddExpenseActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                JSONObject expense = new JSONObject();
+                if (isValidData(view)) {
 
-                TextView selectedCategory = (TextView)category.getSelectedView();
+                    JSONObject expense = new JSONObject();
 
-                try {
-                    expense.put("date", DateFormat.getDateInstance().format(new Date(date.getText().toString())));
-                    expense.put("amount", amount.getText());
-                    expense.put("description", description.getText().toString());
-                    expense.put("category", selectedCategory.getText().toString());
-                   // Log.d("selected",selectedCategory.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    TextView selectedCategory = (TextView) category.getSelectedView();
+
+                    try {
+                        expense.put("date", DateFormat.getDateInstance().format(new Date(date.getText().toString())));
+                        expense.put("amount", amount.getText());
+                        expense.put("description", description.getText().toString());
+                        expense.put("category", selectedCategory.getText().toString());
+
+                        ExpenseRepository.addExpense(getBaseContext(), expense);
+                        Intent intent = new Intent();
+                        intent.putExtra("ack", "Expense added successfully.");
+                        setResult(SEND_EXPENSE, intent);
+                        finish();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
-
-                Intent intent=new Intent();
-                intent.putExtra("expense",expense.toString());
-                setResult(SEND_EXPENSE,intent);
-                finish();
-
             }
         });
     }
 
-    private void dateClickListener(){
+    private void backBtnListener(){
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(0, new Intent());
+                finish();
+            }
+        });
+    }
+
+    private void dateClickListener() {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                c = Calendar.getInstance();
+                calendar = Calendar.getInstance();
 
-                int currentYear = c.get(Calendar.YEAR);
-                int currentMonth = c.get(Calendar.MONTH);
-                int currentDay = c.get(Calendar.DAY_OF_MONTH);
+                int currentYear = calendar.get(Calendar.YEAR);
+                int currentMonth = calendar.get(Calendar.MONTH);
+                int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
                 datePickerDialog = new DatePickerDialog(AddExpenseActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                                calendar.set(Calendar.YEAR, year);
+                                calendar.set(Calendar.MONTH, monthOfYear);
+                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                                SimpleDateFormat df = new SimpleDateFormat("MMM d, yyyy");
+                                //Log.d("date",df.format(calendar.getTime()));
+                                date.setText(df.format(calendar.getTime()));
                             }
                         }, currentYear, currentMonth, currentDay);
 
@@ -113,5 +138,26 @@ public class AddExpenseActivity extends Activity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(dataAdapter);
 
+    }
+
+    private boolean isValidData(View view) {
+        if (date.getText().toString().equals("")) {
+            showMessage(view, "Date is required");
+            return false;
+        }
+        if (amount.getText().toString().equals("") || Integer.parseInt(amount.getText().toString())<=0) {
+            showMessage(view, "Amount is invalid");
+            return false;
+        }
+        if (description.getText().toString().equals("")) {
+            showMessage(view, "Description is required");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showMessage(View view, String message) {
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
     }
 }

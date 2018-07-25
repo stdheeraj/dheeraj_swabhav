@@ -10,10 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.widget.Toast;
 
 import tracker.expense.techlabs.com.expensetracker.databinding.ActivityMainBinding;
 
@@ -21,12 +18,10 @@ import tracker.expense.techlabs.com.expensetracker.databinding.ActivityMainBindi
 public class MainActivity extends AppCompatActivity {
 
     private static final int ADD_EXPENSE = 1;
-    private static final int SAVE_EXPENSE = 2;
-    private RecyclerView.Adapter expenseAdapter;
+    private ExpenseDataAdapter expenseAdapter;
     private LinearLayoutManager expenseLayoutManager;
     private Toolbar toolbar;
     private ActivityMainBinding binding;
-//    private JSONArray expenses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         DividerItemDecoration itemDecor = new DividerItemDecoration(binding.expenseRecycler.getContext(), expenseLayoutManager.getOrientation());
         binding.expenseRecycler.addItemDecoration(itemDecor);
 
-        expenseAdapter = new ExpenseDataAdapter(this, ExpenseRepository.getExpenses(getApplicationContext()));
+        expenseAdapter = new ExpenseDataAdapter(this);
         binding.expenseRecycler.setAdapter(expenseAdapter);
 
         binding.addExpense.setOnClickListener(new View.OnClickListener() {
@@ -60,36 +55,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
         super.onActivityResult(requestCode, resultCode, i);
-
-        JSONObject expense = null;
-
-        if(resultCode== ADD_EXPENSE) {
-            try {
-                expense = new JSONObject(i.getStringExtra("expense"));
-                ExpenseRepository.addExpense(getApplicationContext(),expense);
-                expenseAdapter.notifyDataSetChanged();
-                //expenses.put(expense);
-//                expenseAdapter = new ExpenseDataAdapter(this, ExpenseRepository.getExpenses(getApplicationContext()));
-//                binding.expenseRecycler.setAdapter(expenseAdapter);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        if(resultCode != 0) {
+            expenseAdapter.updateExpenses();
+            expenseAdapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(), i.getStringExtra("ack"), Toast.LENGTH_SHORT).show();
         }
-
-        if(resultCode== SAVE_EXPENSE) {
-            try {
-                expense = new JSONObject(i.getStringExtra("expense"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            //expenses.remove(expense.get(""))
-            //expenses.put(expense);
-            binding.expenseRecycler.setAdapter(expenseAdapter);
-        }
-
     }
-
-
 
 }

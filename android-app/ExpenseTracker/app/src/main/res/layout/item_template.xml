@@ -6,6 +6,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/expenseItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="fill_horizontal"
@@ -31,11 +32,13 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="₹ "
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/rupee"
                         android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/expenseAmount"
                         android:layout_width="wrap_content"
