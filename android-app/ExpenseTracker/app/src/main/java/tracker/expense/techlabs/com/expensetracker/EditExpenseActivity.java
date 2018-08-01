@@ -1,11 +1,12 @@
 package tracker.expense.techlabs.com.expensetracker;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,6 +44,7 @@ public class EditExpenseActivity extends Activity {
     private ArrayAdapter<String> dataAdapter;
     private int id;
     private JSONObject expense;
+    private AlertDialog alertDialog;
 
 
     @Override
@@ -97,17 +99,37 @@ public class EditExpenseActivity extends Activity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ExpenseRepository.removeExpense(getBaseContext(), id);
-                Intent intent = new Intent();
-                intent.putExtra("ack", "Expense deleted successfully.");
-                setResult(DELETE_EXPENSE, intent);
-                finish();
+
+                //AlertDialog alertDialog = null;
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditExpenseActivity.this);
+                alertDialogBuilder.setMessage("Are you sure, You want to delete this expense?");
+                alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        ExpenseRepository.removeExpense(getBaseContext(), id);
+                        Intent intent = new Intent();
+                        intent.putExtra("ack", "Expense deleted successfully.");
+                        setResult(DELETE_EXPENSE, intent);
+                        finish();
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        alertDialog.dismiss();
+                        //finish();
+                    }
+                });
+
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
     }
 
-    private void backBtnListener(){
+    private void backBtnListener() {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,7 +213,7 @@ public class EditExpenseActivity extends Activity {
             showMessage(view, "Date is required");
             return false;
         }
-        if (amount.getText().toString().equals("") || Integer.parseInt(amount.getText().toString())<=0) {
+        if (amount.getText().toString().equals("") || Integer.parseInt(amount.getText().toString()) <= 0) {
             showMessage(view, "Amount is invalid");
             return false;
         }
