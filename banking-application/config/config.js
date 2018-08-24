@@ -11,7 +11,7 @@ const config = {
  mail: {
   service: 'gmail',
   admin: 'cdheeraj76@gmail.com',
-  password: 'Application12'
+  password: 'password'
  },
  domain:{
    name: 'http://localhost:8080'
