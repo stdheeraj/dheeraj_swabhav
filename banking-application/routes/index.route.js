@@ -10,7 +10,13 @@ const router = express.Router();
 // router.use('/admin', adminRoutes);
 // //console.log(customerRoutes);
 router.use('/customer', customerRoutes);
+
 // router.use('/passbook', transactionHistoryRoutes);
 // router.use('/appointment', appointmentRoutes);
 
+router.use(function(req, res){
+    console.log(req.status +' : '+req.message);
+    res.status(req.status).json(req.message);
+    res.end();
+});
 module.exports = router;

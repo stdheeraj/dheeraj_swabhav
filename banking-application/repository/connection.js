@@ -15,7 +15,7 @@ function MongooseConnection() {
 }
 
 const Connection = function () {
-    console.log('inside connection');
+    //console.log('inside connection');
     var con = null;
     
     var obj = {};

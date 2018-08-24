@@ -7,6 +7,14 @@ const config = {
    username:'root',
    password: 'root123',
    name: 'bank-db'
+ },
+ mail: {
+  service: 'gmail',
+  admin: 'cdheeraj76@gmail.com',
+  password: 'Application12'
+ },
+ domain:{
+   name: 'http://localhost:8080'
  }
 };
 

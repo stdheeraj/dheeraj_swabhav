@@ -12,13 +12,30 @@ function CustomerService() {
         })
     }
 
+    obj.getCustomerByEmailId = (customerEmailID) => {
+        return new Promise((resolve, reject) => {
+            Customer.findOne({EmailID : customerEmailID}, (err, result) => {
+                //console.log(result);
+                if (err)
+                    reject(err);
+                else
+                    resolve(result);
+            });
+        });
+    }
+
     obj.createCustomer = (customerObj) => {
         return new Promise((resolve, reject) => {
             let newCustomer = new Customer({
-                "Login": customerObj.Login,
-                "ContactDetail": customerObj.ContactDetail
+                "Login": {
+                    "UserName": customerObj.UserName,
+                    "Password": customerObj.Password
+                },
+                "ContactDetail": {
+                    "EmailID": customerObj.EmailID
+                }
             });
-            //newCustomer.Login = customerObj.Login;
+            
             newCustomer.save((err, result) => {
                 if (err)
                     reject(err);

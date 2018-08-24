@@ -32,7 +32,7 @@ let AddressSchema = new Schema({
 	},
 	PostalCode: {
 		type: Number,
-		match: ['^[0-9]{6}$', "Postal code must be of 6 digit."],
+		//match: ['^[0-9]{6}$', "Postal code must be of 6 digit."],
 		required: [true, 'Postal Code of address field is required.']
 	}
 });
@@ -41,11 +41,11 @@ let ContactNumberSchema = new Schema({
 	CountryCode: {
 		type: String,
 		default: '+91',
-		match: '^[+0-9]{2,4}$'
+		//match: '^[+0-9]{2,4}$'
 	},
 	PhoneNumber: {
 		type: Number,
-		match: '^[0-9]{10}$',
+		//match: '^[0-9]{10}$',
 		index: {
 			unique: true,
 			partialFilterExpression: { PhoneNumber: { $type: 'decimal' } }
@@ -109,12 +109,11 @@ let ProfileSchema = new Schema({
 
 let ContactSchema = new Schema({
 	ContactNumber: {
-		type: ContactNumberSchema,
-		required: [true, 'Contact number of account holder is required.']
+		type: ContactNumberSchema
 	},
 	EmailID: {
 		type: String,
-		match: '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$',
+		//match: '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/',
 		index: {
 			unique: true,
 			partialFilterExpression: { EmailID: { $type: 'string' } }
